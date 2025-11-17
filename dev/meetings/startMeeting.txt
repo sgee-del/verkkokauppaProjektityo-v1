@@ -1,0 +1,65 @@
+Aloitus palaveri
+
+Toteutettava työ
+-2024 semifinaali (verkkokauppa)
+
+
+Roolit
+- Justus = Fullstack
+- Jere = Fullstack
+
+Suunnitelmat
+
+- Kommentoinnin ja muuttujien kieli
+= englanti
+- Tiedotuspaikka (ensisijainen)
+= Discord
+- Design
+= Inkscape
+
++
+- ER
+- Dokumentointi
+- Palaverit
+- Trello
+- Gantt (Excel)
+
+Suunnitelmat työhon
+
+Väriteema:
+- Teksti
+- Tausta
+
+- Logo
+- Fontit
+
+
+Vaatimukset eri osiin
+Landing page
+- Navigointi
+- Hero
+- Kategoriat
+- Mainokset
+- Tuoteehdotukset
+- Kaupan tiedot
+- footer
+
+Ostoskori
+- Navigointi
+- Ostokorin tuotteet
+- Hinta + maksa
+- Toimituksen tiedot
+- footer
+
+Tuotteet
+- Navigointi
+- Soudattimet
+- Tuotteet
+- footer
+Navigointi 
+- Logo
+- Haku
+- Ostoskori
+- Kirjaudu/luotili
+
+Footer
