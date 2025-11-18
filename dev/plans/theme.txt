@@ -1,4 +1,12 @@
 Väriteema:
+
+- 1: #224035
+- 2: #152620
+- 3: #f2c185
+- 4: #d9cab8
+- 5: #593325
+
+
 - Teksti: #(hex koodi)
 - Tausta: #(hex koodi)
 
