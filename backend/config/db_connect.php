@@ -1,6 +1,6 @@
 <?php
 // Haetaan config.php:n sisältö ja asetustiedosto
-require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/config.php';
 
 // Luodaan tietokantayhteys käyttäen config.php:n vakioita
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
