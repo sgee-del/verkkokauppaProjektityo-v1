@@ -1,10 +1,11 @@
 <?php
 session_start();
-require_once '../backend/config/db_connect.php';
+require_once '../backend/config/db_connect.php'; // Databadse yhteys
 require_once '../backend/helpers/validation.php'; // Otetaan validointifunktiot käyttöön
 require_once '../backend/helpers/password_helper.php'; // Otetaan salasanan apufunktiot käyttöön
-include "header_footer/header.php";
+include "header_footer/header.php"; // Includetaan header
 
+// Alustetaan muuttujat ja virhetaulukko
 $errors = [];
 $username = '';
 $email = '';
