@@ -66,11 +66,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+        // Tallennetaan käyttäjä tietokantaan
         $stmt = $pdo->prepare("
             INSERT INTO users (email, firstname, lastname, phone, passHash, createdAt)
             VALUES (?, ?, ?, ?, ?, NOW())
         ");
 
+        // Jos tallennus onnistuu, ohjataan kirjautumissivulle
         if ($stmt->execute([$email, $firstname, $lastname, $phone, $hashed_password])) {
             header("Location: login.php?registration=success");
             exit;
