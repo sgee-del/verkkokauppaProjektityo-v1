@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (is_empty($email)) {
         $errors['email'] = "Sähköposti on pakollinen.";
     } elseif (!validate_email($email)) {
-        $errors['email'] = "Sähköposti on virheellisessä muodossa.";
+        $errors['email'] = "Sähköposti täytyy olla muodossa email@gmail.com ";
     }
 
     // Puhelin (valinnainen)
@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Jos virheitä ei ole → luodaan käyttäjä
     if (empty($errors)) {
 
+        // Hashataan salasana
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Tallennetaan käyttäjä tietokantaan
