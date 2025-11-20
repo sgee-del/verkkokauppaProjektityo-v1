@@ -1,0 +1,42 @@
+/* Grid-container */
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+  min-height: 100vh;
+  padding: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* koko näytön korkeus */
+  
+}
+
+.max-1200 {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.form-group {
+    border: 8px solid black;
+  border-radius: 60px;
+  padding: 90px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  min-height: 700px;
+  box-sizing: border-box;
+}
+
+.card {
+    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-header {
+    text-align: center;
+}

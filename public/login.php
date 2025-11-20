@@ -55,17 +55,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<head>
+<link rel="stylesheet" href="assets/css/root.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/login.css">
 
+</head>
+<body>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
+             <div class="card-header"><h3>Kirjaudu sisään</h3></div>
             <div class="card">
-                <div class="card-header"><h3>Kirjaudu sisään</h3></div>
                 <div class="card-body">
-                    <?php if (isset($errors['form'])): ?>
-                        <div class="alert alert-danger"><?php echo $errors['form']; ?></div>
-                    <?php endif; ?>
                     
+        <div class="content">
                     <form action="login.php" method="post">
                         <div class="form-group mb-3">
                             <label for="email_or_username">Sähköposti</label>
@@ -75,9 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php if (isset($errors['email_or_username'])): ?>
                                 <div class="invalid-feedback"><?php echo $errors['email_or_username']; ?></div>
                             <?php endif; ?>
-                        </div>
+                        
 
-                        <div class="form-group mb-4">
+                        <div class="form-roup mb-4">
                             <label for="password">Salasana</label>
                             <input type="password" name="password" id="password" 
                                 class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>">
@@ -85,17 +89,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="invalid-feedback"><?php echo $errors['password']; ?></div>
                             <?php endif; ?>
                         </div>
+                          <button type="submit" class="btn btn-primary w-100">Kirjaudu</button>
 
-                        <button type="submit" class="btn btn-primary w-100">Kirjaudu</button>
+                          <div class="card-footer text-center">
+                    <p>Eikö sinulla ole tiliä? <a href="register.php">Luo tili</a></p>
+                </div>
+                         </div>
+
+                       
                     </form>
                 </div>
 
-                <div class="card-footer text-center">
-                    <p>Eikö sinulla ole tiliä? <a href="register.php">Luo tili</a></p>
+    
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<?php if (isset($errors['form'])): ?>
+                        <div class="alert alert-danger"><?php echo $errors['form']; ?></div>
+                    <?php endif; ?>
+</body>
 <?php include 'header_footer/footer.php'; ?>
