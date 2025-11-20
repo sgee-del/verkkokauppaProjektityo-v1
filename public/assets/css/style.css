@@ -4,6 +4,12 @@ body {
     color: var(--paragraph-color);
     font-family: outfit;
     font-weight: 100;
+    background: url("../images/background/dark.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
 }
 .max-1200 {
     width: 10;
@@ -37,4 +43,10 @@ body {
   font-family: outfit;
   font-weight: 200;
   src: url(../fonts/outfit/static/Outfit-Light.ttf);
+}
+
+@media (max-width:600px) {
+    body {
+        background-position: left;
+    }
 }
