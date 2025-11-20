@@ -1,8 +1,101 @@
 <?php
 session_start();
 require_once '../backend/config/db_connect.php'; // Yhteys tietokantaan
-require_once '../backend/helpers/auth.php';     // Tunnistautumisen apufunktio, Jos ei ole kirautunut, ohjataan login sivulle
-include "header_footer/header_frontend.php";  // Include header
+require_once '../backend/helpers/auth.php';      // Tunnistautumisen apufunktiot
+require_once '../backend/helpers/validation.php'; // Validointifunktiot
+require_once '../backend/helpers/password_helper.php'; // Salasanan apufunktiot
+include "header_footer/header.php";  // Include header
 
-// Vaaditaan, että käyttäjä on kirjautunut sisään
-check_login_status();
+// Jos käyttäjä on jo kirjautunut, ohjataan hänet etusivulle.
+if (is_logged_in()) {
+    header('Location: index.php');
+    exit;
+}
+
+$errors = [];
+$email = '';
+
+// Käsitellään lomakkeen lähetys
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Puhdista syötteet
+    $email = sanitize_input($_POST['email_or_username']);
+    $password = $_POST['password'];
+
+    if (is_empty($email)) {
+        $errors['email_or_username'] = "Sähköposti on pakollinen.";
+    }
+    if (is_empty($password)) {
+        $errors['password'] = "Salasana on pakollinen.";
+    }
+
+    //Jos syöte ok → tarkistetaan käyttäjä
+    if (empty($errors)) {
+
+        // Haetaan käyttäjä sähköpostin perusteella
+        $stmt = $pdo->prepare("SELECT userID, email, passHash FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+
+        // Tarkistetaan salasana
+        if ($user && password_verify($password, $user['passHash'])) {
+
+            session_regenerate_id(true);
+
+            // Tallennetaan käyttäjä sessioon
+            $_SESSION['userID'] = $user['userID'];
+            $_SESSION['email'] = $user['email'];
+
+            header("Location: index.php");
+            exit;
+
+        } else {
+            $errors['form'] = "Virheellinen sähköposti tai salasana.";
+        }
+    }
+}
+?>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><h3>Kirjaudu sisään</h3></div>
+                <div class="card-body">
+                    <?php if (isset($errors['form'])): ?>
+                        <div class="alert alert-danger"><?php echo $errors['form']; ?></div>
+                    <?php endif; ?>
+                    
+                    <form action="login.php" method="post">
+                        <div class="form-group mb-3">
+                            <label for="email_or_username">Sähköposti</label>
+                            <input type="text" name="email_or_username" id="email_or_username" 
+                                class="form-control <?php echo isset($errors['email_or_username']) ? 'is-invalid' : ''; ?>" 
+                                value="<?php echo htmlspecialchars($email); ?>">
+                            <?php if (isset($errors['email_or_username'])): ?>
+                                <div class="invalid-feedback"><?php echo $errors['email_or_username']; ?></div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="password">Salasana</label>
+                            <input type="password" name="password" id="password" 
+                                class="form-control <?php echo isset($errors['password']) ? 'is-invalid' : ''; ?>">
+                            <?php if (isset($errors['password'])): ?>
+                                <div class="invalid-feedback"><?php echo $errors['password']; ?></div>
+                            <?php endif; ?>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Kirjaudu</button>
+                    </form>
+                </div>
+
+                <div class="card-footer text-center">
+                    <p>Eikö sinulla ole tiliä? <a href="register.php">Luo tili</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include 'header_footer/footer.php'; ?>
