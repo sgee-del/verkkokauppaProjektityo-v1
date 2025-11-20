@@ -4,7 +4,9 @@
 
     # HUOM! Muuta tähänoma tiedostosi root kansio
     # Sitten oikea osoite on http://localhost/OMA KANSIO POLKU/frontend/index.php
-    RewriteBase /KouluProjekti/public/
+    # RewriteBase /KouluProjekti/public/              
+
+    #   HUOM!!!! MUUNNA REWRITEBASE POLKU OMAAN PROJEKTIISI!!!!
 
     #     RewriteBase /KouluProjekti/public/
     #   Jos linux palvelimelle public_html/public/
