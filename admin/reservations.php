@@ -14,19 +14,17 @@
         require_once("includes/admin_nav.php");
         ?>
         <div class="main-content">
-            <h1>Hallintapaneeli / Käyttäjät</h1>
+            <h1>Hallintapaneeli / Tilaukset</h1>
             <form method="get">
                 <div class="search-nav">
                     <div class="search">
                         <select name="type" class="select-type">
                             <option value="val1">Tyyppi</option>
                             <option value="id">ID</option>
-                            <option value="name">Nimi</option>
-                            <option value="lastname">Sukunimi</option>
-                            <option value="email">Email</option>
-                            <option value="phoneNum">PuhNro</option>
-                            <option value="type">Tila</option>
-                            <option value="joinDate">LiittymisPvm</option>
+                            <option value="item">Tuote</option>
+                            <option value="type">Tyyppi</option>
+                            <option value="stock">Varasto</option>
+                            <option value="added">Lisätty</option>
                         </select>
                         <input type="text" name="text" class="textInput" required>
                     </div>
@@ -44,37 +42,32 @@
                     </div>
                     <div>
                         <p>
-                        etunimi
+                            Kuva
                         </p>
                     </div>
                     <div>
                         <p>
-                        Sukunimi
+                            Tuote
                         </p>
                     </div>
                     <div>
                         <p>
-                        Email
+                            Tyyppi
                         </p>
                     </div>
                     <div>
                         <p>
-                        PuhNro
+                            Varasto
                         </p>
                     </div>
                     <div>
                         <p>
-                        Tila
+                            Lisätty
                         </p>
                     </div>
                     <div>
                         <p>
-                        liittymisPvm
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        tiedot
+                            Tiedot
                         </p>
                     </div>
                 </div>
@@ -85,39 +78,30 @@
                         </p>
                     </div>
                     <div>
+                        <img src="../public/assets/images/cart.png" style="height:100%">
+                    </div>
+                    <div>
                         <p>
-                        nimi
+                            Coop
                         </p>
                     </div>
                     <div>
                         <p>
-                        sukunen
+                            Säilyke
                         </p>
                     </div>
                     <div>
                         <p>
-                        at@at.at
+                            12
                         </p>
                     </div>
                     <div>
                         <p>
-                        990908908
+                            24-11-2025
                         </p>
                     </div>
                     <div>
-                        <p>
-                        aktiivinen
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        20-11-2025
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        tiedot
-                        </p>
+                        <a href="">Muokkaa</a>
                     </div>
                 </div>
             </div>
