@@ -9,6 +9,8 @@ body {
     background-size: cover;
     margin: 0;
 }
+a {text-decoration: none; color: var(--header-color);}
+a:hover {color: var(--paragraph-color);}
 .max-1200 {
     height: 100%;
     width: 100%;
@@ -114,6 +116,11 @@ body {
     background-color: #666666;
 }
 
+@media (max-width:800px) {
+    .output-div {
+        align-items:first baseline;
+    }
+}
 @media (max-width:1200px) {
     body {
         background-position: left;
@@ -160,5 +167,8 @@ body {
         position: fixed;
         top: 0;
         left: 0;
+    }
+    .main-content {
+        max-width: unset;
     }
 }
