@@ -1,3 +1,87 @@
 body {
-    background: url("../images/background/green.svg");
+    background-color: #f0f4f5 ;
+    
+
+}
+h1 {
+    font-weight: 500;
+    font-size: 25px;
+}
+.hero-bg {
+    max-width: 2000px;
+    display: flex;
+    justify-self: left ;
+    width: 72%;
+    aspect-ratio: 16 / 9;
+    background: url(../images/index.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 60px;
+    margin-top: 150px;
+    justify-content: flex-start;
+    align-items: center;
+     box-shadow: 0px 0px 60px 50px #152620ff;
+}
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 23vh;
+
+    font-size: 40px;
+}
+
+.text-primary {
+    text-align: left;
+    color: #ffffff;
+    font-size: 80px;
+    margin: 0;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.class-button {
+    font-size: 40px;
+   margin-top: 40px;
+   padding: 24px 120px ;
+   background:transparent;
+   border: 1px solid #ffffffff ;
+   border-radius: 12px;
+   color: #ffffffff;
+   
+ 
+}
+.class-button:hover {
+    cursor: pointer;
+    color: rgb(177, 177, 177);
+    border-color: rgb(177, 177, 177);
+}
+
+@media (max-width:600px) {
+
+    .hero-bg {
+        width: 100%;
+        margin: 120px 0;
+         height: 300px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        margin: 3vh 4vw;
+    }
+
+    .text-primary {
+        width: 100% ;
+        font-size:36px;
+    }
+
+    .class-button {
+        font-size:20px;
+        padding:12px 40px;
+        margin-top:20px;
+    }
+    
 }
