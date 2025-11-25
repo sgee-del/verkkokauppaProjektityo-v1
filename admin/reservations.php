@@ -66,66 +66,37 @@
                         </p>
                     </div>
                 </div>
-                <div class="output-row rowJS" style="padding-inline:5px" id="row1">
+                <div id="fetchOutput">
+
+                </div>
+                <div class="output-row rowJS" style="padding-inline:5px" id="r1">
                     <div>
-                        <p class="item" data-value="1">
+                        <p id="r1-reservationID">
                         1
                         </p>
                     </div>
                     <div>
-                        <p>
+                        <p id="r1-userID">
                         1
                         </p>
                     </div>
                     <div>
-                        <p>
+                        <p id="r1-reservationDate">
                             25-11-2025
                         </p>
                     </div>
                     <div>
-                        <p>
+                        <p id="r1-subtotal">
                             11
                         </p>
                     </div>
                     <div>
-                        <p>
+                        <p id="r1-reservationState">
                             paid
                         </p>
                     </div>
                     <div>
-                        <p>
-                            Paid
-                        </p>
-                    </div>
-                </div>
-                <div class="output-row rowJS" style="padding-inline:5px" id="row2">
-                    <div>
-                        <p>
-                        2
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        2
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            25-11-2025
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            15
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            paid
-                        </p>
-                    </div>
-                    <div>
-                        <p>
+                        <p id="r1-paymentState">
                             Paid
                         </p>
                     </div>
@@ -133,37 +104,47 @@
             </div>
         </div>
     </div>
-
-    <div class="middle-popup" id="popup">
-        <div class="row space-between" style="background-color:#2b2b2b">
-            <h1 id="popupHeader">Tilaus 1</h1>
-            <button id="btnClose" class="btn-exit">X</button>
-        </div>
-        <div>
-            <p>
-                Tilauksen tiedot
-            </p>
+    <div class="popup-div" id="popupBg" style="display:none;">
+        <div class="middle-popup" id="popup">
+            <div class="row space-between" style="background-color:#2b2b2b">
+                <h1 id="popupHeader">Tilaus 1</h1>
+                <button id="btnClose" class="btn-exit">X</button>
+            </div>
+            <div class="col" id="popupContent">
+            </div>
         </div>
     </div>
 
     <script>
+
+        window.onload = function() {
+            console.log("page laoded");
+        };
+
         const btnClose = document.getElementById("btnClose");
         const popup = document.getElementById("popup");
-        const btnOpen = document.getElementById("btnInfo");
+        const popupBg = document.getElementById("popupBg");
 
         const popupHeader = document.getElementById("popupHeader");
 
         //close function
         btnClose.addEventListener("click", function() {
-            popup.style.display = "none";
+            popupBg.style.display = "none";
         });
+        //add onclick to each row, so they can be clicked
         document.querySelectorAll('.rowJS').forEach(row => {
             row.addEventListener('click', function (e) {
-                popup.style.display = "block";
+
+                const rowId = row.id;
                 
+                fetchOrdersPopup(rowId.substring(1));
+
+                popupHeader.textContent = "Tiedot riviltä: " + rowId;
+                popupBg.style.display = "block";
+
             });
-            console.log("added eventlistener");
         });
     </script>
+    <script src="assets/js/fetchOrdersPopup.js"></script>
 </body>
 </html>

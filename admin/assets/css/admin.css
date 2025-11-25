@@ -124,14 +124,31 @@ a:hover {color: var(--paragraph-color);}
     width: 450px;
     height: 650px;
     border-radius: 5px;
+    box-shadow: 0px 0px 24px 12px #0000005d;
 }
 .middle-popup div {
     padding: 15px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-.middle-popup h1 {
+.middle-popup h1, .middle-popup p, .middle-popup h2 {
     margin: 0;
+}
+.middle-popup p {
+    line-height: 0;
+}
+.popup-bg {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff6b;
+}
+#popupContent {
+    overflow-y: auto;
+    height: 580px;
 }
 .btn-exit {
     height: 40px;
