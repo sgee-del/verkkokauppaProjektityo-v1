@@ -20,6 +20,9 @@ body {
 .col {
   flex-direction: column;
 }
+.space-between {
+  justify-content: space-between;
+}
 .max-1200 {
     width: 10;
     max-width: 1200px;

@@ -103,11 +103,23 @@
                         </p>
                     </div>
                     <div>
-                        <a href="">Tiedot</a>
+                        <button id="btnInfo">Tiedot</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="middle-popup">
+        <div class="row space-between">
+            <h1>Tilaus 1</h1>
+            <button>Poistu</button>
+        </div>
+        <p>
+        Tilauksen tiedot
+        </p>
+    </div>
+    <script>
+
+    </script>
 </body>
 </html>

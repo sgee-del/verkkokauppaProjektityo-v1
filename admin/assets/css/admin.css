@@ -115,10 +115,24 @@ a:hover {color: var(--paragraph-color);}
     grid-template-columns: repeat(8,2fr);
     background-color: #666666;
 }
-
+.middle-popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #666666;
+    width: 450px;
+    height: 650px;
+    padding: 15px;
+    border-radius: 5px;
+}
 @media (max-width:800px) {
     .output-div {
         align-items:first baseline;
+    }
+    .middle-popup {
+        width: 100vw;
+        height: 100vh;
     }
 }
 @media (max-width:1200px) {
