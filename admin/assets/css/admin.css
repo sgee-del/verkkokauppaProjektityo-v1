@@ -120,11 +120,29 @@ a:hover {color: var(--paragraph-color);}
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    background-color: #666666;
+    background-color: #434343;
     width: 450px;
     height: 650px;
-    padding: 15px;
     border-radius: 5px;
+}
+.middle-popup div {
+    padding: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.middle-popup h1 {
+    margin: 0;
+}
+.btn-exit {
+    height: 40px;
+    width: 40px;
+    border: none;
+    background-color: #c34f4f;
+    color: #fff;
+}
+.btn-exit:hover {
+    transition: background-color 0.1s linear;
+    background-color: #ca7c7c;
 }
 @media (max-width:800px) {
     .output-div {
