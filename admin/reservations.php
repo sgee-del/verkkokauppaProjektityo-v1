@@ -37,32 +37,32 @@
                 <div class="output-headers">
                     <div>
                         <p>
-                            id
+                            TilausID
                         </p>
                     </div>
                     <div>
                         <p>
-                            Kuva
+                            TilaajaID
                         </p>
                     </div>
                     <div>
                         <p>
-                            Tuote
+                            TilausPVM
                         </p>
                     </div>
                     <div>
                         <p>
-                            Tyyppi
+                            Kokonaishinta
                         </p>
                     </div>
                     <div>
                         <p>
-                            Varasto
+                            Tilauksen tila
                         </p>
                     </div>
                     <div>
                         <p>
-                            Lisätty
+                            Maksun tila
                         </p>
                     </div>
                     <div>
@@ -78,30 +78,32 @@
                         </p>
                     </div>
                     <div>
-                        <img src="../public/assets/images/cart.png" style="height:100%">
-                    </div>
-                    <div>
                         <p>
-                            Coop
+                        1
                         </p>
                     </div>
                     <div>
                         <p>
-                            Säilyke
+                            25-11-2025
                         </p>
                     </div>
                     <div>
                         <p>
-                            12
+                            11
                         </p>
                     </div>
                     <div>
                         <p>
-                            24-11-2025
+                            paid
                         </p>
                     </div>
                     <div>
-                        <a href="">Muokkaa</a>
+                        <p>
+                            Paid
+                        </p>
+                    </div>
+                    <div>
+                        <a href="">Tiedot</a>
                     </div>
                 </div>
             </div>

@@ -11,8 +11,10 @@
         </div>
     </div>
     <div class="side-nav-bot">
+        <?php if (isset($_SESSION['email'])):?>
         <div class="side-nav-content">
-            Username
+            <?=$_SESSION['email']?>
         </div>
+        <?php endif?>
     </div>
 </div>
