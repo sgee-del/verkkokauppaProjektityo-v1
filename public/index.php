@@ -23,18 +23,14 @@ include "header_footer/header_frontend.php";  // Include header
     ?>
      <div class="hero-bg">
         <div class="hero-content">
-    <div class="class-img">
-<img src="../images/index.jpg" alt="">
-
-
-
-</div>
-<div class="row space-between w-100 column">
-<h1 class = "text-primary">Ruoka <br>verkko <br> kauppa </h1>
-<button class="class-button">Valikoima</button>
-
-</div>
-    </div>
+            <div class="class-img">
+                <img src="../images/index.jpg" alt="">
+            </div>
+            <div class="row space-between w-100 column">
+                <h1 class = "text-primary">Ruoka <br>verkko <br> kauppa </h1>
+                <button class="class-button">Valikoima</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
