@@ -105,4 +105,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="alert alert-danger"><?php echo $errors['form']; ?></div>
                     <?php endif; ?>
 </body>
-<?php include 'header_footer/footer.php'; ?>
+<?php //include 'header_footer/footer.php'; ?>

@@ -60,6 +60,11 @@ body {
 .nav-link {
   text-decoration: none;
   color: #ffffff;
+  margin: 0;
+}
+.nav-link h1 {
+  font-weight: 500;
+  font-size: 25px;
 }
 @font-face {
   font-family: outfit;

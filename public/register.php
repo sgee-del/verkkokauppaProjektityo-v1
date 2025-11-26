@@ -174,6 +174,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 
-<?php include 'header_footer/footer.php'; ?>
+<?php //include 'header_footer/footer.php'; ?>
 
 </body>
