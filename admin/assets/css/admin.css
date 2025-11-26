@@ -16,11 +16,14 @@ a:hover {color: var(--paragraph-color);}
     width: 100%;
 }
 .side-nav {
-    width: 300px;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+}
+.side-nav-top    {
+    max-width: 300px;
 }
 .side-nav-content {
     border: var(--header-color) solid 1px;
@@ -115,6 +118,10 @@ a:hover {color: var(--paragraph-color);}
     grid-template-columns: repeat(8,2fr);
     background-color: #666666;
 }
+.output-row:hover {
+    transition: background-color 0.2s linear;
+    background-color: #a9a9a9;
+}
 .middle-popup {
     position: fixed;
     left: 50%;
@@ -176,6 +183,11 @@ a:hover {color: var(--paragraph-color);}
     }
     .max-1200 {
         flex-direction: column;
+    }.side-nav {
+        max-width: unset;
+    }
+    .side-nav-top {
+        max-width: unset;
     }
 }
 @media (max-width:1300px) {

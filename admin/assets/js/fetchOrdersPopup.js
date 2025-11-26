@@ -70,14 +70,18 @@ function fetchOrdersPopup(id) {
                         </div>
 
                         <h2>Tuotteet</h2>
-                        
-                        <h3>Tuote 1</h4>
+                    `;
+                });
+                let i = 1;
+                for (const item of data) {
+                    html += `
+                        <h3>Tuote ${i}</h4>
                         <div class="row space-between">
                             <p>
                                 Nimi
                             </p>
                             <p>
-                                ${order.productName}
+                                ${item.productName}
                             </p>
                         </div>
 
@@ -86,7 +90,7 @@ function fetchOrdersPopup(id) {
                                 Määrä
                             </p>
                             <p>
-                                ${order.productAmount}
+                                ${item.productAmount}
                             </p>
                         </div>
 
@@ -95,40 +99,12 @@ function fetchOrdersPopup(id) {
                                 Tuotteen hinta (kpl)
                             </p>
                             <p>
-                                ${order.productPrice}
-                            </p>
-                        </div>
-                        
-                        <h3>Tuote 2</h4>
-                        <div class="row space-between">
-                            <p>
-                                Nimi
-                            </p>
-                            <p>
-                                ${order.productName}
-                            </p>
-                        </div>
-
-                        <div class="row space-between">
-                            <p>
-                                Määrä
-                            </p>
-                            <p>
-                                ${order.productAmount}
-                            </p>
-                        </div>
-
-                        <div class="row space-between">
-                            <p>
-                                Tuotteen hinta (kpl)
-                            </p>
-                            <p>
-                                ${order.productPrice}
+                                ${item.productPrice}
                             </p>
                         </div>
                     `;
-                });
-                
+                    i++;
+                }
                 ordersDiv.innerHTML = html;
             }
         })

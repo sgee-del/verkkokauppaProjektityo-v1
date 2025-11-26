@@ -1,3 +1,17 @@
+<?php
+$is_getId = false;
+//get method of ID
+if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"]) && is_numeric($_GET["text"])) {
+    //fetches content of api
+
+    //api path
+    $apiPath = "../../backend/api/get_orders.php";
+    $is_getId = true;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +35,6 @@
                         <select name="type" class="select-type">
                             <option value="val1">Tyyppi</option>
                             <option value="id">ID</option>
-                            <option value="item">Tuote</option>
-                            <option value="type">Tyyppi</option>
-                            <option value="stock">Varasto</option>
-                            <option value="added">Lisätty</option>
                         </select>
                         <input type="text" name="text" class="textInput" required>
                     </div>
@@ -38,11 +48,6 @@
                     <div>
                         <p>
                             TilausID
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            TilaajaID
                         </p>
                     </div>
                     <div>
@@ -67,39 +72,40 @@
                     </div>
                 </div>
                 <div id="fetchOutput">
-
-                </div>
-                <div class="output-row rowJS" style="padding-inline:5px" id="r1">
-                    <div>
-                        <p id="r1-reservationID">
-                        1
-                        </p>
+                    <?php
+                    if ($is_getId):
+                        
+                    ?>
+                    <div class="output-row rowJS" style="padding-inline:5px" id="r1">
+                        <div>
+                            <p id="r1-reservationID">
+                            <?=$_GET["text"]?>
+                            </p>
+                        </div>
+                        <div>
+                            <p id="r1-reservationDate">
+                            ${order.orderDate}
+                            </p>
+                        </div>
+                        <div>
+                            <p id="r1-subtotal">
+                            ${order.totalPrice}
+                            </p>
+                        </div>
+                        <div>
+                            <p id="r1-reservationState">
+                            ${order.orderStatus}
+                            </p>
+                        </div>
+                        <div>
+                            <p id="r1-paymentState">
+                            ${order.paymentStatus}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <p id="r1-userID">
-                        1
-                        </p>
-                    </div>
-                    <div>
-                        <p id="r1-reservationDate">
-                            25-11-2025
-                        </p>
-                    </div>
-                    <div>
-                        <p id="r1-subtotal">
-                            11
-                        </p>
-                    </div>
-                    <div>
-                        <p id="r1-reservationState">
-                            paid
-                        </p>
-                    </div>
-                    <div>
-                        <p id="r1-paymentState">
-                            Paid
-                        </p>
-                    </div>
+                    <?php
+                    endif
+                    ?>
                 </div>
             </div>
         </div>
@@ -117,10 +123,6 @@
 
     <script>
 
-        window.onload = function() {
-            console.log("page laoded");
-        };
-
         const btnClose = document.getElementById("btnClose");
         const popup = document.getElementById("popup");
         const popupBg = document.getElementById("popupBg");
@@ -136,8 +138,9 @@
             row.addEventListener('click', function (e) {
 
                 const rowId = row.id;
+                const reservationRowId = rowId + "-reservationID";
                 
-                fetchOrdersPopup(rowId.substring(1));
+                fetchOrdersPopup(reservationRowId.textContent);
 
                 popupHeader.textContent = "Tiedot riviltä: " + rowId;
                 popupBg.style.display = "block";
