@@ -81,6 +81,8 @@ body {
     border: none !important;
     color: #ffffff !important;
     box-shadow: none !important; /* poistaa sinisen korostuksen */
+
+    width: 500px;
 }
 
 .form-control:focus {
