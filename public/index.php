@@ -18,6 +18,9 @@ include "header_footer/header_frontend.php";  // Include header
     <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
+    <?php
+    require_once("header_footer/header.php");
+    ?>
      <div class="hero-bg">
         <div class="hero-content">
     <div class="class-img">

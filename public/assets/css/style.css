@@ -31,6 +31,36 @@ body {
     align-self: center;
     justify-self: center;
 }
+.nav-icon {
+  width: 32px;
+  height: 32px;
+}
+.nav-link:hover {
+  cursor: pointer;
+  transition: filter 0.1s linear;
+  filter: invert(30%);
+}
+.link-shopping-cart {
+  padding: 15px;
+  border-left: #c4c4c4ff solid 1px;
+  margin-left: 15px;
+}
+.top-nav {
+  background-color: #152620;
+  border-bottom: #c4c4c4ff solid 1px;
+}
+.nav-align {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.nav-align h1 {
+  margin-left: 10px;
+}
+.nav-link {
+  text-decoration: none;
+  color: #ffffff;
+}
 @font-face {
   font-family: outfit;
   font-weight: 500;
