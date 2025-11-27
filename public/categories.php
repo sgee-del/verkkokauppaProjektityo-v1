@@ -15,19 +15,19 @@ include "header_footer/header.php";  // Include header
     <title>Tuotteet</title>
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/items.css">
+    <link rel="stylesheet" href="assets/css/categories.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h2 class="top-margin">Tuotteet</h2>
+            <h2 class="top-margin">Tuotteet / Kategoria1</h2>
         </div>
         <div class="col">
             <div class="row space-between nav-align">
                 <h1 class="top-margin">Kategoria1</h1>
-                <a href="categories.php" class="check-btn" style="width:120px">Enemmän</a>
+                <a href="items.php" class="check-btn" style="width:120px">Takaisin</a>
             </div>
-            <div class="categoryRow row top-margin">
+            <div class="categoryRow top-margin">
                 <div class="col space-between box">
                     <div id="row-items">
                         <img src="assets/images/background/green.svg" alt="Kuva" class="product-img">
