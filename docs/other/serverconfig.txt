@@ -1,0 +1,2 @@
+Kun ohjelma laitetaan palvelimelle täytyy mm. näistä tiedostoista muuttaa pokuja fetchaukseen
+-Items.php (ainakin 1 muutettava linkki)

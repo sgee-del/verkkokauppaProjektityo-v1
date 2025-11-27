@@ -1,96 +1,75 @@
 <?php
 session_start();
-include "header_footer/header.php";
+require_once '../backend/config/db_connect.php'; // Yhteys tietokantaan
+require_once '../backend/helpers/auth.php';      // Tunnistautumisen apufunktiot
+require_once '../backend/helpers/validation.php'; // Validointifunktiot
+require_once '../backend/helpers/password_helper.php'; // Salasanan apufunktiot
+include "header_footer/header.php";  // Include header
 ?>
+
 <!DOCTYPE html>
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuotteet</title>
-
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/items.css">
 </head>
 <body>
-
-<div class="container">
-    <div class="header">
-        <h2 class="top-margin">Tuotteet</h2>
-    </div>
-
-    <div id="productArea"></div>
-</div>
-
-<script>
-    
-// Haetaan tuotteet API:sta 
-async function loadProducts() {
-    const res = await fetch("../backend/api/products/get_products.php");
-    const data = await res.json();
-
-    if (!data.success) {
-        document.getElementById("productArea").innerHTML =
-            "<p>Virhe tuotteiden lataamisessa.</p>";
-        return;
-    }
-
-    let html = "";
-
-    data.categories.forEach(cat => {
-        html += `
+    <div class="container">
+        <div class="header">
+            <h2 class="top-margin">Tuotteet</h2>
+        </div>
         <div class="col">
             <div class="row space-between nav-align">
-                <h1 class="top-margin">${cat.categoryName}</h1>
-                <a href="categories.php?id=${cat.categoryID}" class="check-btn" style="width:120px">Enemmän</a>
+                <h1 class="top-margin">Kategoria1</h1>
+                <a href="categories.php" class="check-btn" style="width:120px">Enemmän</a>
             </div>
             <div class="categoryRow row top-margin">
-        `;
+                <?php
+                // Fetch from API
+                $url = "http://localhost/verkkokauppaProjektityo/backend/api/products/read.php";
 
-        cat.products.forEach(p => {
-            html += `
-            <div class="col space-between box">
-                <div id="row-items">
-                    <!-- Tarkistetaan onko kuvaa, jos ei, käytetään placeholder-kuvaa -->
-                    <img src="${p.imagePath ? '../' + p.imagePath : 'assets/images/placeholder.png'}" class="product-img" alt="${p.name}">
-                    <div class="row space-between nav-align">
-                        <h2>${p.name}</h2>
-                        <h4>${parseFloat(p.price).toFixed(2)} €</h4>
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_URL, $url);
+
+                $result = curl_exec($ch);
+                curl_close($ch);
+
+                // Decode JSON to associative array
+                $data = json_decode($result, true);
+
+                // Check if decoding worked
+                if (!$data) {
+                    echo "Invalid JSON or empty response";
+                    exit;
+                }
+
+                // Loops each item and show them to user
+                foreach ($data as $item):?>
+                    <a href="item.php?productId=<?=$item["productID"]?>" style="all:unset;cursor:pointer">
+                        <div class="col space-between box">
+                            <div id="row-items">
+                                <img src="assets/<?=$item["imagePath"]?>" alt="Kuva" class="product-img">
+                                <div class="row space-between nav-align">
+                                    <h2><?=$item["name"]?></h2>
+                                    <h4><?=$item["price"]?></h4>
+                                </div>
+                            </div>
+                        
+                        <div class="row space-between">
+                            <form method="post">
+                                <button class="check-btn">Lisää ostoskoriin</button>
+                            </form>
+                        </div></a>
                     </div>
-                </div>
-                <div class="row space-between">
-                    <button class="check-btn" onclick="addToCart(${p.productID})">Lisää ostoskoriin</button>
-                </div>
-            </div>`;
-        });
-
-        html += `</div></div>`;
-    });
-
-    document.getElementById("productArea").innerHTML = html;
-}
-
-// Funktio lataa tuotteet sivulle
-loadProducts();
-
-// Käytetään AJAXia ja lisätään tuote ostoskoriin api:lla
-async function addToCart(productID) {
-    const res = await fetch("../backend/api/cart/add_to_cart.php", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ productID })
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-        alert("Tuote lisätty ostoskoriin!");
-    } else {
-        alert(data.message || "Lisääminen epäonnistui.");
-    }
-}
-</script>
-
+                <?php endforeach
+                ?>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
