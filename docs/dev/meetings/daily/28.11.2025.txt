@@ -1,0 +1,1 @@
+Siellä on backup entisestä kokonaan koska itmes.php sivulla oli jotain mmuutoksia ainakin mys nyt kaikki toimii api:n kautta jha hakee automaattisesti tietokannasta kategoriat yms. entiiä muuttuk o tyylit nyt etusivulla? muutenkin backend alkaa olla valmis kaupan puolelta vielä admin puoli ja pikku paranneltavaa
