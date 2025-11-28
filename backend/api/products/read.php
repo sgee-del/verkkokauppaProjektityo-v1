@@ -1,4 +1,4 @@
-<!-- Hae kaikki tuotteet TODO: tee sama muille -->
+<!-- Hae kaikki tuotteet-->
 <?php
 require_once "../../config/db_connect.php";
 

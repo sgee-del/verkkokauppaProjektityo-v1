@@ -29,7 +29,7 @@ if (!empty($errors)) {
 }
 
 // Haetaan käyttäjä tietokannasta
-$stmt = $pdo->prepare("SELECT userID, email, passHash FROM users WHERE email = ?");
+$stmt = $pdo->prepare("SELECT userID, email, firstname, passHash FROM users WHERE email = ?");
 $stmt->execute([$email]);
 $user = $stmt->fetch();
 
@@ -46,6 +46,7 @@ if (!$user || !password_verify($password, $user["passHash"])) {
 session_regenerate_id(true);
 $_SESSION["userID"] = $user["userID"];
 $_SESSION["email"] = $user["email"];
+$_SESSION["firstname"] = $user["firstname"];
 
 echo json_encode(["success" => true, "message" => "Kirjautuminen onnistui"]);
 ?>

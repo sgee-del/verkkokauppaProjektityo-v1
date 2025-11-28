@@ -23,6 +23,10 @@ include "header_footer/header.php";
     <div id="productArea"></div>
 </div>
 
+<!-- Toast-ilmoituselementti -->
+<div id="toast"></div>
+
+
 <script>
     
 // Haetaan tuotteet API:sta 
@@ -30,11 +34,14 @@ async function loadProducts() {
     const res = await fetch("../backend/api/products/get_products.php");
     const data = await res.json();
 
+    
     if (!data.success) {
         document.getElementById("productArea").innerHTML =
             "<p>Virhe tuotteiden lataamisessa.</p>";
         return;
     }
+
+    
 
     let html = "";
 
@@ -78,17 +85,28 @@ loadProducts();
 async function addToCart(productID) {
     const res = await fetch("../backend/api/cart/add_to_cart.php", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productID })
     });
 
     const data = await res.json();
 
     if (data.success) {
-        alert("Tuote lisätty ostoskoriin!");
+        showToast("Tuote lisätty ostoskoriin!");
     } else {
-        alert(data.message || "Lisääminen epäonnistui.");
+        showToast(data.message || "Lisääminen epäonnistui.");
     }
+}
+
+// toast ilmoitus funktio
+function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.innerText = msg;
+    toast.style.display = "block";
+
+    setTimeout(() => {
+        toast.style.display = "none";
+    }, 2000);
 }
 </script>
 

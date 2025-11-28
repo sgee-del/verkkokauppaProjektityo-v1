@@ -11,7 +11,7 @@ $pdo = getDBConnection();
 $data = json_decode(file_get_contents("php://input"), true);
 $errors = [];
 
-// Poimi syötteet
+// Puhdisstaa syötteet
 $firstname = sanitize_input($data['firstname'] ?? '');
 $lastname = sanitize_input($data['lastname'] ?? '');
 $email = sanitize_input($data['email'] ?? '');
@@ -19,7 +19,7 @@ $phone = sanitize_input($data['phone'] ?? '');
 $password = $data['password'] ?? '';
 $password_confirm = $data['password_confirm'] ?? '';
 
-// Validoitaan syötteet
+// Virhe iklmoitujkset
 
 if (is_empty($firstname)) $errors['firstname'] = "Etunimi on pakollinen.";
 if (is_empty($lastname)) $errors['lastname'] = "Sukunimi on pakollinen.";

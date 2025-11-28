@@ -43,11 +43,7 @@ function is_admin(PDO $pdo): bool {
 }
 
 
-/**
- * Vaatii käyttäjän olevan admin.
- * Jos käyttäjä ei ole admin, ohjaa hänet etusivulle ja pysäyttää skriptin.
- * 
- */
+/* Jos käyttäjä ei ole admin → ohjaa etusivulle */
 function require_admin(PDO $pdo): void
 {
     if (!is_admin($pdo)) {

@@ -1,23 +1,16 @@
 <?php
 
-/**
- * Tarkistaa, onko käyttäjä kirjautunut sisään.
- *
- * @return bool Palauttaa true, jos käyttäjä on kirjautunut, muuten false.
- */
+/* @return bool Palauttaa true, jos käyttäjä on kirjautunut, muuten false */
 function is_logged_in(): bool
 {
     // Varmistetaan, että sessio on käynnissä
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    return isset($_SESSION['KayttajaID']);
+    return isset($_SESSION['userID']);
 }
 
-/**
- * Vaatii käyttäjän olevan kirjautunut.
- * Jos käyttäjä ei ole kirjautunut, ohjaa hänet kirjautumissivulle.
- */
+/* Jos käyttäjä ei ole kirjautunut, ohjaa hänet kirjautumissivulle */
 function require_login(): void
 {
     if (!is_logged_in()) {
