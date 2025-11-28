@@ -1,14 +1,18 @@
 <?php
 session_start();
-include "header_footer/header.php";
+require_once '../backend/config/db_connect.php'; // Yhteys tietokantaan
+require_once '../backend/helpers/auth.php';      // Tunnistautumisen apufunktiot
+require_once '../backend/helpers/validation.php'; // Validointifunktiot
+require_once '../backend/helpers/password_helper.php'; // Salasanan apufunktiot
+include "header_footer/header.php";  // Include header
 ?>
+
 <!DOCTYPE html>
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuotteet</title>
-
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/items.css">
@@ -49,8 +53,8 @@ async function loadProducts() {
         html += `
         <div class="col">
             <div class="row space-between nav-align">
-                <h1 class="top-margin">${cat.categoryName}</h1>
-                <a href="categories.php?id=${cat.categoryID}" class="check-btn" style="width:120px">Enemmän</a>
+                <h1 class="top-margin">Kategoria1</h1>
+                <a href="categories.php" class="check-btn" style="width:120px">Enemmän</a>
             </div>
             <div class="categoryRow row top-margin">
         `;

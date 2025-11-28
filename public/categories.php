@@ -64,6 +64,18 @@ include "header_footer/header.php";  // Include header
                         <button class="check-btn">Lisää ostoskoriin</button>
                     </div>
                 </div>
+                <div class="col space-between box">
+                    <div id="row-items">
+                        <img src="assets/images/background/green.svg" alt="Kuva" class="product-img">
+                        <div class="row space-between nav-align">
+                            <h2>Makkara</h2>
+                            <h4>12.99</h4>
+                        </div>
+                    </div>
+                    <div class="row space-between">
+                        <button class="check-btn">Lisää ostoskoriin</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
