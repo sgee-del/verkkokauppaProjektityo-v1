@@ -1,134 +1,129 @@
+html, body {
+    height: auto;
+    overflow-y: auto !important;
+}
+
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-}
-h1, h2 {margin: 0.5;}
-
-.box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    min-width: 300px;
-    width: 300px;
-    height: 370px;
-}
-.categoryRow {
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    gap: 10px;
-    margin-inline: 10px;
-}
-.product-img {
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    width:100%;
-    aspect-ratio:4 / 3;
+    padding-left: 35px;
+    padding-right: 35px;
 }
 
-.top-margin {
+/* Otsikot */
+h1, h2 {
+    margin: 0.5rem 0;
+}
+
+/* Kategorian lohko */
+.category-block {
+    margin-bottom: 50px;
+}
+
+.category-title {
+    font-size: 28px;
+    font-weight: bold;
     margin-top: 25px;
-}
-
-.row-item {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    transition: all 0.3s;
-}
-
-.row-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.item-image {
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 0.5rem;
-    flex-shrink: 0;
-}
-
-.item-info {
-    flex-grow: 1;
-}
-
-.item-name {
+    margin-bottom: 15px;
     color: white;
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
 }
 
-.item-price {
-    color: #a7f3d0;
-    font-weight: 500;
+/* Tuoterivit (3 tuotteen grid) */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px); 
+    gap: 25px;
+    justify-content: start; 
 }
 
-.quantity-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+
+/* Tuotekortti */
+.product-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 15px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    max-width: 300px;
+    width: 100%;
+    justify-content: left;
+    justify-items: left;
 }
 
-.summary {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
 }
 
-.summary-row {
+/* Tuotteen kuva */
+.product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+/* Tuotetiedot */
+.product-info {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.75rem;
-    color: #d1fae5;
+    align-items: center;
 }
 
-.summary-row.total {
-    font-size: 1.25rem;
-    font-weight: 700;
+.product-info h2 {
     color: white;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 18px;
 }
 
-.check-btn {
+.product-info h4 {
+    color: #a7f3d0;
+    font-size: 18px;
+}
+
+/* Lisää ostoskoriin -nappi */
+.add-btn {
     width: 100%;
     background: white;
     color: #1a3a3a;
     border: none;
-    padding: 1rem;
-    border-radius: 1rem;
-    font-size: 1.1rem;
-    font-weight: 700;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 10px;
     cursor: pointer;
-    margin-top: 1.5rem;
+    font-weight: 700;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-.check-btn:hover {
-    background-color: #8b8b8b;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+.add-btn:hover {
+    background: #d1d1d1;
 }
 
+/* Toast-ilmoitus */
+#toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
+    display: none;
+    font-size: 15px;
+}
+
+/* Mobile */
 @media (max-width: 768px) {
-    .cart-item {
-        flex-wrap: wrap;
+    .product-img {
+        height: 160px;
     }
-    
-    .quantity-controls {
-        width: 100%;
-        justify-content: flex-end;
+
+    .product-card {
+        padding: 12px;
     }
 }
-   

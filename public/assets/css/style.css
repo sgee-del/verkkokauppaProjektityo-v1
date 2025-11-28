@@ -13,36 +13,37 @@ body {
   background-attachment: fixed;
   background-size: cover;
   margin: 0;
+
 }
 
 .orders-container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: rgba(1, 112, 61, 0.39);
-            padding: 25px;
-            border-radius: 8px;
-        }
+  max-width: 900px;
+  margin: 40px auto;
+  background: rgba(1, 112, 61, 0.39);
+  padding: 25px;
+  border-radius: 8px;
+}
 
-        .order-box {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin-bottom: 20px;
-        }
+.order-box {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
 
-        .order-items {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
+.order-items {
+  margin-left: 20px;
+  margin-top: 10px;
+}
 
-        .item-line {
-            padding: 4px 0;
-        }
+.item-line {
+  padding: 4px 0;
+}
 
-        .order-title {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
+.order-title {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
 
 .checkout-container {
   max-width: 650px;
@@ -53,12 +54,26 @@ body {
 }
 
 .checkout-input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    font-size: 16px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    backdrop-filter: blur(5px);
 }
+
+.checkout-input::placeholder {
+    color: #e6e6e6;
+}
+
+.checkout-input:focus {
+    outline: none;
+    border-color: white;
+}
+
 
 #toast {
   position: fixed;

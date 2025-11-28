@@ -1,79 +1,70 @@
 <?php
 session_start();
-require_once '../backend/config/db_connect.php'; // Yhteys tietokantaan
-require_once '../backend/helpers/auth.php';      // Tunnistautumisen apufunktiot
-require_once '../backend/helpers/validation.php'; // Validointifunktiot
-require_once '../backend/helpers/password_helper.php'; // Salasanan apufunktiot
-include "header_footer/header.php";  // Include header
+include "header_footer/header.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuotteet</title>
+
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/items.css">
 </head>
+
 <body>
 
 <div class="container">
-    <div class="header">
-        <h2 class="top-margin">Tuotteet</h2>
-    </div>
+    <h2 class="top-margin">Tuotteet</h2>
 
     <div id="productArea"></div>
 </div>
 
-<!-- Toast-ilmoituselementti -->
 <div id="toast"></div>
 
-
 <script>
-    
-// Haetaan tuotteet API:sta 
+
+// hae tuotteet
 async function loadProducts() {
     const res = await fetch("../backend/api/products/get_products.php");
     const data = await res.json();
 
-    
     if (!data.success) {
         document.getElementById("productArea").innerHTML =
             "<p>Virhe tuotteiden lataamisessa.</p>";
         return;
     }
 
-    
-
     let html = "";
 
     data.categories.forEach(cat => {
         html += `
-        <div class="col">
-            <div class="row space-between nav-align">
-                <h1 class="top-margin">Kategoria1</h1>
-                <a href="categories.php" class="check-btn" style="width:120px">Enemmän</a>
-            </div>
-            <div class="categoryRow row top-margin">
+        <div class="category-block">
+            <h3 class="category-title">${cat.categoryName}</h3>
+
+            <div class="product-grid">
         `;
 
-        cat.products.forEach(p => {
+        // Näytetään vain 3 ensimmäistä tuotetta
+        cat.products.slice(0, 3).forEach(p => {
             html += `
-            <div class="col space-between box">
-                <div id="row-items">
-                    <!-- Tarkistetaan onko kuvaa, jos ei, käytetään placeholder-kuvaa -->
-                    <img src="${p.imagePath ? '../' + p.imagePath : 'assets/images/placeholder.png'}" class="product-img" alt="${p.name}">
-                    <div class="row space-between nav-align">
-                        <h2>${p.name}</h2>
-                        <h4>${parseFloat(p.price).toFixed(2)} €</h4>
-                    </div>
+            <div class="product-card">
+                <img src="${p.imagePath ? '../' + p.imagePath : 'assets/images/placeholder.png'}"
+                     class="product-img"
+                     alt="${p.name}">
+                
+                <div class="product-info">
+                    <h2>${p.name}</h2>
+                    <h4>${parseFloat(p.price).toFixed(2)} €</h4>
                 </div>
-                <div class="row space-between">
-                    <button class="check-btn" onclick="addToCart(${p.productID})">Lisää ostoskoriin</button>
-                </div>
-            </div>`;
+
+                <button class="add-btn" onclick="addToCart(${p.productID})">
+                    Lisää ostoskoriin
+                </button>
+            </div>
+            `;
         });
 
         html += `</div></div>`;
@@ -82,10 +73,10 @@ async function loadProducts() {
     document.getElementById("productArea").innerHTML = html;
 }
 
-// Funktio lataa tuotteet sivulle
 loadProducts();
 
-// Käytetään AJAXia ja lisätään tuote ostoskoriin api:lla
+
+// Lisää ostoskoriiin
 async function addToCart(productID) {
     const res = await fetch("../backend/api/cart/add_to_cart.php", {
         method: "POST",
@@ -102,7 +93,7 @@ async function addToCart(productID) {
     }
 }
 
-// toast ilmoitus funktio
+// toast
 function showToast(msg) {
     const toast = document.getElementById("toast");
     toast.innerText = msg;
@@ -112,6 +103,7 @@ function showToast(msg) {
         toast.style.display = "none";
     }, 2000);
 }
+
 </script>
 
 </body>

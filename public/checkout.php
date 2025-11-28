@@ -10,59 +10,88 @@ include "header_footer/header.php";
 
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/cart.css"> 
 
-   
 </head>
 
 <body>
 
-<div class="checkout-container">
-    <h2>Vahvista tilaus</h2>
+<div class="container">
+    <h1 class="page-title">Vahvista tilaus</h1>
 
-    <h3>Tuotteet</h3>
-    <div id="orderItems">Ladataan...</div>
+    <div class="cart-box">
 
-    <h3 style="margin-top:20px;">Toimitusosoite</h3>
-    <input id="street" class="checkout-input" placeholder="Katuosoite">
-    <input id="zip" class="checkout-input" placeholder="Postinumero">
-    <input id="city" class="checkout-input" placeholder="Kaupunki">
+        <h2 style="margin-bottom:10px;">Tilauksesi tuotteet</h2>
+        <div id="orderItems">Ladataan tuotteet...</div>
 
-    <button class="check-btn" style="margin-top:15px;" onclick="confirmOrder()">
-        Vahvista tilaus
-    </button>
+        <hr style="margin:25px 0; border-color:rgba(255,255,255,0.2)">
+
+        <h2>Toimitusosoite</h2>
+
+        <input id="street" class="checkout-input" placeholder="Katuosoite">
+        <input id="zip" class="checkout-input" placeholder="Postinumero">
+        <input id="city" class="checkout-input" placeholder="Kaupunki">
+
+        <button class="checkout-btn" onclick="confirmOrder()" style="margin-top:20px;">
+            Vahvista tilaus
+        </button>
+    </div>
 </div>
 
 <script>
-function toast(msg) {
+/* toast */
+function toast(message) {
     const t = document.createElement("div");
-    t.className = "toast";
-    t.innerText = msg;
+    t.className = "toast-notification";
+    t.innerText = message;
     document.body.appendChild(t);
     setTimeout(() => t.remove(), 2000);
 }
 
-// Hae ostoskori
+/* Lataa ostoskori */
 async function loadCart() {
     const res = await fetch("../backend/api/cart/get_cart.php");
     const data = await res.json();
 
-    const box = document.getElementById("orderItems");
+    const area = document.getElementById("orderItems");
 
     if (!data.success || data.items.length === 0) {
-        box.innerHTML = "<p>Ostoskori on tyhjä.</p>";
+        area.innerHTML = "<p>Ostoskori on tyhjä.</p>";
         return;
     }
 
     let html = "";
-    data.items.forEach(i => {
-        html += `<p>${i.name} x ${i.quantity} — <strong>${i.total.toFixed(2)} €</strong></p>`;
+
+    data.items.forEach(item => {
+        html += `
+            <div class="cart-item">
+                <img src="${item.imagePath}" class="item-image">
+
+                <div class="item-info">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-price">${(item.total).toFixed(2)} €</div>
+                </div>
+
+                <div style="color:white; font-size:16px;">
+                    x ${item.quantity}
+                </div>
+            </div>
+        `;
     });
 
-    html += `<h3>Yhteensä: ${data.total.toFixed(2)} €</h3>`;
-    box.innerHTML = html;
+    html += `
+        <div class="summary">
+            <div class="summary-row total">
+                <span>Yhteensä</span>
+                <span>${parseFloat(data.total).toFixed(2)} €</span>
+            </div>
+        </div>
+    `;
+
+    area.innerHTML = html;
 }
 
-// Hae osoite jos tallennettu TODO ei toimi
+/* hae tallennettu sosoite TODO ei toimi */
 async function loadAddress() {
     const res = await fetch("../backend/api/user/get_address.php");
     const data = await res.json();
@@ -77,14 +106,14 @@ async function loadAddress() {
 loadCart();
 loadAddress();
 
-// Vahvistus
+/* Tilausken vahvistus TODO lisää nappi taaksepäin */
 async function confirmOrder() {
     const streetVal = street.value.trim();
     const zipVal = zip.value.trim();
     const cityVal = city.value.trim();
 
     if (!streetVal || !zipVal || !cityVal) {
-        toast("Täytä kaikki osoitekentät");
+        toast("Täytä kaikki osoitetiedot");
         return;
     }
 
@@ -102,7 +131,7 @@ async function confirmOrder() {
     toast(data.message);
 
     if (data.success) {
-        setTimeout(() => window.location.href = "index.php", 2500);
+        setTimeout(() => window.location.href = "my_orders.php", 2000);
     }
 }
 </script>
