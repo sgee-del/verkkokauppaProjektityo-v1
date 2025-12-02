@@ -19,7 +19,7 @@ body {
 .orders-container {
   max-width: 900px;
   margin: 40px auto;
-  background: rgba(1, 112, 61, 0.39);
+  background: rgb(28, 51, 43);
   padding: 25px;
   border-radius: 8px;
 }

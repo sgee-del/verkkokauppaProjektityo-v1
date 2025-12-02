@@ -28,6 +28,7 @@ if (isset($_GET['registration']) && $_GET['registration'] === 'success') {
         <div class="col-md-6">
 
             <div class="cart-box">
+                  <div class="card-header"></div>
                 <div class="card">
 
                     <div class="card-body">
