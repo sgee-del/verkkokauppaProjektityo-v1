@@ -52,11 +52,17 @@ require_once '../backend/helpers/password_helper.php'; // Salasanan apufunktio
             <div class="breadcrumb">
                 Tuotteet / Kategoria / Tuotteen Nimi
             </div>
-            <button class="back-btn">Takaisin</button>
             <div class="image-placeholder">
                 Tuotekuva
             </div>
         </div>
+        <div class="right-section">
+                    <div class="breadcrumb">
+                        <a href="items.php">Tuotteet</a> / <a href="categories.php?category=<?=$category["categoryName"]?>"><?=$category["categoryName"]?></a> / <?=$product["name"]?>
+                    </div>
+                    <a href="items.php" class="back-btn">Takaisin</a>
+                    <img src="assets/<?=$product["imagePath"]?>" alt="">
+                </div>
         </div>
     </div>
 </body>
