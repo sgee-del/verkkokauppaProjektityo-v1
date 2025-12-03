@@ -1,8 +1,6 @@
 <?php
 session_start();
-
-// Sisällytetään tietokantayhteys
-require_once '../backend/config/db_connect.php'; // Oletetaan, että tämä on oikea polku
+require_once '../backend/config/db_connect.php'; // Yhteys tietokantaan
 
 // Tarkistetaan, että product_id on saatu URL:sta
 if (isset($_GET['product_id'])) {
@@ -50,6 +48,8 @@ if (isset($_GET['product_id'])) {
 <body>
     <?php include "header_footer/header.php"; ?> <!-- Include header -->
 
+    <div id="toast"></div>
+
     <div class="container">
         <div class="cart-box"> 
             <div class="left-section">
@@ -58,16 +58,17 @@ if (isset($_GET['product_id'])) {
                 <p class="description"><?= nl2br(htmlspecialchars($product['descr'])) ?></p>
                 <div class="features">Ominaisuudet</div>
 
+                <!-- Määärän valinta -->
                 <div class="quantity-section">
-                    <div class="quantity-control">
-                        <button class="quantity-btn">−</button>
-                        <div class="quantity-display">1</div>
-                        <button class="quantity-btn">+</button>
-                    </div>
-                    <button class="add-to-cart-btn">Lisää ostoskoriin</button>
+                    <button class="quantity-btn-minus" onclick="updateQuantity('minus')">−</button>
+                    <div class="quantity-display" id="quantity-display">1</div>
+                    <button class="quantity-btn-plus" onclick="updateQuantity('plus')">+</button>
                 </div>
 
-                <div class="delivery-info">Toimitus samana päivänä</div>
+                <!-- Lisää oostoskoriin funktio -->
+                <button class="add-btn" onclick="addToCart(<?= $product['productID'] ?>)">
+                    Lisää ostoskoriin
+                </button>
             </div>
 
             <div class="right-section">
@@ -88,5 +89,59 @@ if (isset($_GET['product_id'])) {
             </div>
         </div>
     </div>
+
+    <script>
+        
+        // Päivitä määrää
+        function updateQuantity(action) {
+            const quantityDisplay = document.getElementById("quantity-display");
+            let quantity = parseInt(quantityDisplay.innerText);
+
+            // Lisätään tai vähennetään määrää
+            if (action === 'plus') {
+                quantity += 1;
+            } else if (action === 'minus' && quantity > 1) {
+                quantity -= 1;
+            }
+
+            // Päivitetään määrä HTML:ssä
+            quantityDisplay.innerText = quantity;
+        }
+
+        // Lisää ostoskoriin
+        async function addToCart(productID) {
+            const quantity = parseInt(document.getElementById("quantity-display").innerText);
+
+            const res = await fetch("../backend/api/cart/add_to_cart.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ productID, quantity }) // Lähetetään tuotteen ID ja määrä
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                showToast("Tuote lisätty ostoskoriin!");
+            } else {
+                showToast(data.message || "Lisääminen epäonnistui.");
+            }
+        }
+
+        // Näytä toast-viesti käyttäjälle
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+
+            if (toast) {
+                toast.innerText = msg;
+                toast.style.display = "block";
+
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 2000);
+            } else {
+                console.error("Toast elementtiä ei löytynyt!");
+            }
+        }
+    </script>
 </body>
 </html>

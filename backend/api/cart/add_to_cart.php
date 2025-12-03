@@ -29,9 +29,14 @@ $cart = $stmt->fetch();
 
 if (!$cart) {
     // Luodaan uusi ostoskori
-    $pdo->prepare("INSERT INTO cart (userID, createdAt) VALUES (?, NOW())")
-        ->execute([$userID]);
-    $cartID = $pdo->lastInsertId();
+    try {
+        $pdo->prepare("INSERT INTO cart (userID, createdAt) VALUES (?, NOW())")
+            ->execute([$userID]);
+        $cartID = $pdo->lastInsertId();
+    } catch (Exception $e) {
+        echo json_encode(["success" => false, "message" => "Ostoskoriin luonti epäonnistui: " . $e->getMessage()]);
+        exit;
+    }
 } else {
     $cartID = $cart["cartID"];
 }
@@ -42,17 +47,27 @@ $stmt->execute([$cartID, $productID]);
 $item = $stmt->fetch();
 
 if ($item) {
-    // Päivitetään määrää jso on
-    $pdo->prepare("
-        UPDATE cart_items SET amount = amount + 1
-        WHERE cartID = ? AND productID = ?
-    ")->execute([$cartID, $productID]);
+    // Päivitetään määrää
+    try {
+        $pdo->prepare("
+            UPDATE cart_items SET amount = amount + 1
+            WHERE cartID = ? AND productID = ?
+        ")->execute([$cartID, $productID]);
+    } catch (Exception $e) {
+        echo json_encode(["success" => false, "message" => "Tuotteen päivittäminen ostoskoriin epäonnistui: " . $e->getMessage()]);
+        exit;
+    }
 } else {
-    // Lisätään tuote koriin jos ei
-    $pdo->prepare("
-        INSERT INTO cart_items (cartID, productID, amount)
-        VALUES (?, ?, 1)
-    ")->execute([$cartID, $productID]);
+    // Lisätään tuote koriin
+    try {
+        $pdo->prepare("
+            INSERT INTO cart_items (cartID, productID, amount)
+            VALUES (?, ?, 1)
+        ")->execute([$cartID, $productID]);
+    } catch (Exception $e) {
+        echo json_encode(["success" => false, "message" => "Tuotteen lisääminen ostoskoriin epäonnistui: " . $e->getMessage()]);
+        exit;
+    }
 }
 
 echo json_encode(["success" => true, "message" => "Tuote lisätty ostoskoriin!"]);
