@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <header class="row space-between top-nav">
     <div class="row nav-align">
         <a href="index.php" class="nav-link"><h1>Ruoka</h1></a>
-        <a href="items.php" class="nav-link">Tuotteet</a>
+        <a href="items.php" class="nav-products"><h2>Tuotteet</h2></a>
     </div>
     <div class="row nav-align">
         <?php if (isset($_SESSION['userID']) && isset($_SESSION['firstname'])): ?>

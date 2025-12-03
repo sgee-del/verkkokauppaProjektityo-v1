@@ -81,6 +81,7 @@ include "header_footer/header_frontend.php";  // Include header
                 <h3>📞 Puhelin</h3>
                 <p>+358 44 978 7395</p>
             </div>
+            
         </div>
     </section>
 

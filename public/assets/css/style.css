@@ -114,8 +114,8 @@ body {
 }
 
 .nav-icon {
-  width: 32px;
-  height: 32px;
+  width: 55px;
+  height: 55px;
 }
 
 .nav-link:hover {
@@ -126,8 +126,11 @@ body {
 
 .link-shopping-cart {
   padding: 15px;
-  border-left: #c4c4c4ff solid 1px;
+  border-left:  #c4c4c4ff solid 1px ;
+height: 100%;
   margin-left: 15px;
+  display: flex; 
+    align-items: center; 
 }
 
 .top-nav {
@@ -138,7 +141,7 @@ body {
 .nav-align {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .nav-align h1 {
@@ -151,9 +154,19 @@ body {
   margin: 0;
 }
 
+.nav-products {
+  text-decoration: none;
+  color: #ffffff;
+  margin: 0;
+}
+.nav-products h2 {
+   font-weight: 700;
+  font-size: 35px;
+  margin-left: 30px;
+}
 .nav-link h1 {
   font-weight: 700;
-  font-size: 25px;
+  font-size: 45px;
 }
 
 @font-face {
