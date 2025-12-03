@@ -51,9 +51,12 @@ async function loadProducts() {
         cat.products.slice(0, 3).forEach(p => {
             html += `
             <div class="product-card">
-                <img src="${p.imagePath ? '../' + p.imagePath : 'assets/images/placeholder.png'}"
-                     class="product-img"
-                     alt="${p.name}">
+                <!-- Linkki vie tuotesivulle, jossa näkyy tuote tarkemmin -->
+                <a href="item.php?product_id=${p.productID}">
+                    <img src="${p.imagePath ? '../' + p.imagePath : 'assets/images/placeholder.png'}"
+                         class="product-img"
+                         alt="${p.name}">
+                </a>
                 
                 <div class="product-info">
                     <h2>${p.name}</h2>
