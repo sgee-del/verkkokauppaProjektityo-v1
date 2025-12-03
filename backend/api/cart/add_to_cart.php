@@ -28,6 +28,7 @@ $stmt->execute([$userID]);
 $cart = $stmt->fetch();
 
 if (!$cart) {
+
     // Luodaan uusi ostoskori
     try {
         $pdo->prepare("INSERT INTO cart (userID, createdAt) VALUES (?, NOW())")
@@ -47,6 +48,7 @@ $stmt->execute([$cartID, $productID]);
 $item = $stmt->fetch();
 
 if ($item) {
+
     // Päivitetään määrää
     try {
         $pdo->prepare("
@@ -58,6 +60,7 @@ if ($item) {
         exit;
     }
 } else {
+
     // Lisätään tuote koriin
     try {
         $pdo->prepare("
@@ -71,4 +74,3 @@ if ($item) {
 }
 
 echo json_encode(["success" => true, "message" => "Tuote lisätty ostoskoriin!"]);
-?>

@@ -7,7 +7,7 @@ if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
 
     // Haetaan yhteys tietokantaan
-    $pdo = getDBConnection(); // Käytämme aiemmin luotua funktiota tietokannan yhteyteen
+    $pdo = getDBConnection(); 
 
     // Hae tuotteen tiedot tietokannasta
     $stmt = $pdo->prepare("SELECT * FROM products WHERE productID = ?");
@@ -91,7 +91,7 @@ if (isset($_GET['product_id'])) {
     </div>
 
     <script>
-        
+
         // Päivitä määrää
         function updateQuantity(action) {
             const quantityDisplay = document.getElementById("quantity-display");

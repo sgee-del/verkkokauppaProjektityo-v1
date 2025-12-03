@@ -67,6 +67,8 @@ body {
 .item-price {
     color: #a7f3d0;
     font-size: 17px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 /* Määrän napit */
