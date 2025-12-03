@@ -185,7 +185,11 @@ body {
     color: #cccccc;
     text-decoration: underline;
 }
-
+.text-center{
+    text-align: center;
+    margin: 0;
+    padding-right: 30px;
+}
 @media (max-width:600px) {
 
 .form-input {
