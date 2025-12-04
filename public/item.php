@@ -80,7 +80,7 @@ if (isset($_GET['product_id'])) {
                 <?php if (!empty($images)): ?>
                     <div class="product-images">
                         <?php foreach ($images as $image): ?>
-                            <img src="assets/<?= htmlspecialchars($image['imagePath']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-img">
+                            <img src="../<?= htmlspecialchars($image['imagePath']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-img">
                         <?php endforeach; ?>
                     </div>
                 <?php else: ?>

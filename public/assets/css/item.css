@@ -24,14 +24,19 @@
 
   }
 
-  .container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      /* koko näkymän korkeus */
-
-  }
+/* Container-asetukset */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 75%; 
+    max-width: 1200px; /* Rajoitetaan maksimi-leveys */
+    margin: 0 auto; /* Keskittää containerin */
+    padding-left: 35px;
+    padding-right: 35px;
+    box-sizing: border-box; /* Varmistaa, että padding ei vaikuta leveyteen */
+}
 
   .left-section {
       margin: 25px;
@@ -162,9 +167,8 @@
 
   @media (max-width: 1024px) {
       .container {
-          flex-direction: column;
-          gap: 40px;
-      }
+              padding: 30px 20px;
+          }
 
       .back-btn {
           background: transparent;
@@ -185,7 +189,7 @@
 
       .image-placeholder {
           width: 100%;
-          max-width: 600px;
+          max-width: 500px;
           aspect-ratio: 1;
           border: 2px solid white;
           border-radius: 4px;
@@ -205,8 +209,7 @@
 
       @media (max-width: 1024px) {
           .container {
-              flex-direction: column;
-              gap: 40px;
+              padding: 30px 20px;
           }
 
           .right-section {
@@ -253,4 +256,5 @@
           .add-to-cart-btn {
               width: 100%;
           }
-      }}
+      }
+  }
