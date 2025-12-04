@@ -26,11 +26,18 @@ a:hover {color: var(--paragraph-color);}
     max-width: 300px;
 }
 .side-nav-content {
-    border: var(--header-color) solid 1px;
     border-radius: 5px;
     padding: 10px;
     margin: 5px;
     width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
+}
+.side-nav-content:hover {
+    transition: all 0.2s ease-in-out;
+    background: rgba(115, 115, 115, 0.864);
 }
 .main-content {
     max-width: 900px;
@@ -47,7 +54,7 @@ a:hover {color: var(--paragraph-color);}
 }
 .search {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     height: calc(100% - 10px);
     width: calc(100% - 100px);
     border-radius: 24px;
@@ -87,7 +94,7 @@ a:hover {color: var(--paragraph-color);}
     font-size: 1.5rem;
 }
 .select-type {
-    width: 100px;
+    width: 150px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     color: #fff;
@@ -95,6 +102,10 @@ a:hover {color: var(--paragraph-color);}
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
+}
+.select-type:hover {
+    transition: all 0.2s ease-in-out;
+    background: rgba(205, 205, 205, 0.52);
 }
 .textInput {
     width: 100%;
@@ -104,6 +115,19 @@ a:hover {color: var(--paragraph-color);}
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
+    color: #fff;
+}
+.textInput:hover {
+    transition: all 0.2s ease-in-out;
+    background: rgba(205, 205, 205, 0.52);
+}
+.textInput:focus {
+    transition: all 0.2s ease-in-out;
+    border-radius: 20px;
+}
+.textInput:focus ~ .select-type {
+    transition: all 0.2s ease-in-out;
+    width: 50px;
 }
 .output-div {
     display: flex;

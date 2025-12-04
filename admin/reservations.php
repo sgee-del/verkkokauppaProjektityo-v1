@@ -52,11 +52,11 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
             <form method="get">
                 <div class="search-nav">
                     <div class="search">
+                        <input type="text" name="text" class="textInput" placeholder="Haku" required>
                         <select name="type" class="select-type">
                             <option value="val1" disabled selected>Tyyppi</option>
                             <option value="id">ID</option>
                         </select>
-                        <input type="text" name="text" class="textInput" required>
                     </div>
                     <div class="btn-search">
                         <button type="submit">Hae</button>
