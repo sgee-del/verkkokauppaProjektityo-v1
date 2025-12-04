@@ -9,6 +9,9 @@ if (isset($_GET["type"]) && isset($_GET["text"])) {
     $apiPath = $domain . "backend/api/users/get_user.php?";
 
     switch ($_GET["type"]) {
+        case 'val1':
+            $apiPath = $apiPath. "user_id=a";
+            break;
         case 'id':
             $getId = $_GET["text"];
             if ($getId === "kaikki" || $getId === "all") {
