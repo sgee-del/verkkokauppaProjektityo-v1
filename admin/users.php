@@ -1,3 +1,67 @@
+<?php
+$is_getId = false;
+//get method of ID
+if (isset($_GET["type"]) && isset($_GET["text"])) {
+    
+    //api path. $domain being the root folder where files exist
+    $domain = "http://localhost/verkkokauppaProjektityo-v1/";
+    
+    $apiPath = $domain . "backend/api/users/get_user.php?";
+
+    switch ($_GET["type"]) {
+        case 'id':
+            $getId = $_GET["text"];
+            if ($getId === "kaikki" || $getId === "all") {
+                $getId = "a";
+            }
+            $apiPath = $apiPath. "user_id=".$getId;
+            break;
+        case 'name':
+            $getId = $_GET["text"];
+            $apiPath = $apiPath. "firstname_id=".$getId;
+            break;
+        case 'lastname':
+            $getId = $_GET["text"];
+            $apiPath = $apiPath. "lastname_id=".$getId;
+            break;
+        case 'email':
+            $getId = $_GET["text"];
+            $apiPath = $apiPath. "email_id=".$getId;
+            break;
+        case 'phoneNum':
+            $getId = $_GET["text"];
+            if (!is_numeric($_GET["text"])) {
+                header("location: users.php");
+                exit;
+            }
+            $apiPath = $apiPath. "phone_id=".$getId;
+            break;
+        default:
+            header("location: users.php");
+            exit;
+            break;
+    }
+    //fetches content of api
+
+    $is_getId = true;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $apiPath);
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    // Decode JSON to associative array
+    $data = json_decode($result, true);
+
+    // Check if decoding worked
+    if (!$data) {
+        echo "Invalid JSON or empty response";
+        exit;
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +82,7 @@
             <form method="get">
                 <div class="search-nav">
                     <div class="search">
+                        <input type="text" name="text" class="textInput" required>
                         <select name="type" class="select-type">
                             <option value="val1">Tyyppi</option>
                             <option value="id">ID</option>
@@ -25,10 +90,7 @@
                             <option value="lastname">Sukunimi</option>
                             <option value="email">Email</option>
                             <option value="phoneNum">PuhNro</option>
-                            <option value="type">Tila</option>
-                            <option value="joinDate">LiittymisPvm</option>
                         </select>
-                        <input type="text" name="text" class="textInput" required>
                     </div>
                     <div class="btn-search">
                         <button type="submit">Hae</button>
@@ -62,66 +124,77 @@
                         PuhNro
                         </p>
                     </div>
-                    <div>
-                        <p>
-                        Tila
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        liittymisPvm
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        tiedot
-                        </p>
-                    </div>
                 </div>
-                <div class="output-row" style="padding-inline:5px">
-                    <div>
-                        <p>
-                        1
-                        </p>
+                <div id="fetchOutput">
+                    <?php
+                    if ($is_getId):
+                        foreach ($data as $row):
+                    ?>
+                    <div class="output-row rowJS" style="padding-inline:5px" id="r<?=$row["userID"]?>">
+                        <div>
+                            <p id="r<?=$row["userID"]?>-userID">
+                                <?=$row["userID"]?>
+                            </p>
+                        </div>
+                        <div>
+                            <p id="r<?=$row["userID"]?>-firstname">
+                                <?=$row["firstname"]?>
+                            </p>
+                        </div>
+                        <div>
+                            <p id="r<?=$row["userID"]?>-lastname">
+                                <?=$row["lastname"]?>
+                            </p>
+                        </div>
+                        <div>
+                            <p id="r<?=$row["userID"]?>-email">
+                                <?=$row["email"]?>
+                            </p>
+                        </div>
+                        <div>
+                            <p id="r<?=$row["userID"]?>-puhnro">
+                                <?=$row["phone"]?>
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <p>
-                        nimi
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        sukunen
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        at@at.at
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        990908908
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        aktiivinen
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        20-11-2025
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                        tiedot
-                        </p>
-                    </div>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>
     </div>
+    <div class="popup-bg" id="popup" style="display:none">
+        <div class="middle-popup col">
+            <div class="row space-between">
+                <h1>Tilauksen <span id="rowName"></span> tiedot</h1>
+                <button type="button" class="btn-exit" id="btnClose">X</button>
+            </div>
+            <div class="col">
+                <div class="row space-between">
+                    <p>userID</p>
+                    <p id="userID"></p>
+                </div>
+                <div class="row space-between">
+                    <p>firstname</p>
+                    <p id="firstname"></p>
+                </div>
+                <div class="row space-between">
+                    <p>lastname</p>
+                    <p id="lastname"></p>
+                </div>
+                <div class="row space-between">
+                    <p>Email</p>
+                    <p id="email"></p>
+                </div>
+                <div class="row space-between">
+                    <p>Phone</p>
+                    <p id="phone"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/users.js"></script>
 </body>
 </html>

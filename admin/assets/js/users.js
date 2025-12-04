@@ -5,15 +5,11 @@ const rowName = document.getElementById("rowName");
 
 
 //fillable js content
-const orderID = document.getElementById("orderID");
-const orderDate = document.getElementById("orderDate");
-const totalPrice = document.getElementById("totalPrice");
-const orderStatus = document.getElementById("orderStatus");
-const paymentStatus = document.getElementById("paymentStatus");
-const productIds = document.getElementById("productIds");
-const productAmounts = document.getElementById("productAmounts");
-const productNames = document.getElementById("productNames");
-const productPrices = document.getElementById("productPrices");
+const userID = document.getElementById("userID");
+const firstname = document.getElementById("firstname");
+const lastname = document.getElementById("lastname");
+const email = document.getElementById("email");
+const phone = document.getElementById("phone");
 
 //adds eventlistener to every rowJS object
 
@@ -53,21 +49,17 @@ function fetchOrder(id) {
         const res = await response.json();
 
         //changes values of html objects from json file when fetch is succeess
-        orderID.textContent = res[0]["orderID"];
-        orderDate.textContent = res[0]["orderDate"];
-        totalPrice.textContent = res[0]["totalPrice"];
-        orderStatus.textContent = res[0]["orderStatus"];
-        paymentStatus.textContent = res[0]["paymentStatus"];
-        productIds.textContent = res[0]["productIds"];
-        productAmounts.textContent = res[0]["productAmounts"];
-        productNames.textContent = res[0]["productNames"];
-        productPrices.textContent = res[0]["productPrices"];
+        userID.textContent = res[0]["userID"];
+        firstname.textContent = res[0]["firstname"];
+        lastname.textContent = res[0]["lastname"];
+        email.textContent = res[0]["email"];
+        phone.textContent = res[0]["phone"];
 
     } catch (error) {
         console.error(`Fetch error: ${error.message}`);
         }
     }
     //fetch url (needs to be changed when other device is api host)
-    const url = "http://localhost/verkkokauppaProjektityo-v1/backend/api/orders/get_orders.php?order_id="+id;
+    const url = "http://localhost/verkkokauppaProjektityo-v1/backend/api/users/get_user.php?user_id="+id;
     fetchUrl(url);
 }

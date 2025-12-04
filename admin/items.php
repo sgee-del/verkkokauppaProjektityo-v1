@@ -18,6 +18,7 @@
             <form method="get">
                 <div class="search-nav">
                     <div class="search">
+                        <input type="text" name="text" class="textInput" required>
                         <select name="type" class="select-type">
                             <option value="val1">Tyyppi</option>
                             <option value="id">ID</option>
@@ -26,7 +27,6 @@
                             <option value="stock">Varasto</option>
                             <option value="added">Lisätty</option>
                         </select>
-                        <input type="text" name="text" class="textInput" required>
                     </div>
                     <div class="btn-search">
                         <button type="submit">Hae</button>
