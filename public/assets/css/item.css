@@ -72,41 +72,45 @@ body {
             padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.3);
         }
+.quantity-section {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .quantity-section {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 2px solid white;
+    border-radius: 4px;
+}
 
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            border: 2px solid white;
-            border-radius: 4px;
-        }
 
-        .quantity-btn {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            padding: 8px 20px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
+.quantity-btn-minus,
+.quantity-btn-plus {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
 
-        .quantity-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+.quantity-btn-minus:hover,
+.quantity-btn-plus:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
 
-        .quantity-display {
-            padding: 8px 25px;
-            font-size: 1.2rem;
-            min-width: 60px;
-            text-align: center;
-        }
+/* Määrän näyttö */
+.quantity-display {
+    padding: 8px 25px;
+    font-size: 1.2rem;
+    min-width: 60px;
+    text-align: center;
+    color: white; 
+}
 
         .add-to-cart-btn {
             background: transparent;
@@ -135,7 +139,13 @@ body {
             opacity: 0.9;
         }
 
-        .back-btn {
+        .breadcrumb a {
+            color: white;
+        
+        }
+         
+
+       .back-btn {
             background: transparent;
             border: 2px solid white;
             color: white;
@@ -147,7 +157,7 @@ body {
             margin-bottom: 20px;
         }
 
-        .back-btn:hover {
+       .back-btn:hover {
             background-color: white;
             color: #2d4a42;
         }
@@ -164,7 +174,7 @@ body {
             font-size: 1.2rem;
         
         }
-        .product-img {
+        .product-images img {
             width: 100%;
             aspect-ratio: 1 / 1;
         }
@@ -184,7 +194,7 @@ body {
                 width: 100%;
             }
 
-            .image-placeholder {
+            .product-images {
                 max-width: 100%;
             }
 
