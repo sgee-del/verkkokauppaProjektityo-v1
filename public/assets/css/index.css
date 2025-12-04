@@ -62,6 +62,7 @@ h1 {
 
 .services {
     padding: 5rem 2rem;
+    
 }
 
 .service h2 {
@@ -82,9 +83,12 @@ h1 {
 .feature-card {
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: 0.3s ease;
+     background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(50, 50, 50, 0.3);
 }
 
 .feature-card:hover {
@@ -114,7 +118,10 @@ h1 {
 .about-content {
     border-radius: 20px;
     padding: 3rem;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+     background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(50, 50, 50, 0.3)
 }
 
 .about h2 {
@@ -149,6 +156,7 @@ h1 {
     text-align: center;
     backdrop-filter: blur(6px);
     transition: background 0.3s ease;
+    
 }
      .contact-map {
             flex: 1;

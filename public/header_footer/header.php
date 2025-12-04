@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
              <a href="my_orders.php" class="nav-link">Ostoshistoria</a>
             <span class="nav-greeting">Hei, <?php echo htmlspecialchars($_SESSION['firstname']); ?>!</span>
             <a href="logout.php" class="nav-link" title="Kirjaudu ulos">
-                <img src="assets/images/nav-logout.svg" class="nav-icon">
+                <img src="assets/images/logout.svg" class="nav-icon">
             </a>
             
         <?php else: ?>
