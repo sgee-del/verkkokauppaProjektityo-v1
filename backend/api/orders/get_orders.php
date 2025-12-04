@@ -3,33 +3,38 @@ header('Content-Type: application/json');
 require_once "../../config/db_connect.php";
 
 // Hae käyttäjän ID
-$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : 0;
+$order_id = isset($_GET['order_id']) ? $_GET['order_id'] : 0;
 
-if ($user_id <= 0) {
-    echo json_encode(["error" => "User ID is required and cannot be negative"]);
+if ($order_id <= 0) {
+    echo json_encode(["error" => "order ID is required and cannot be negative"]);
     exit();
 }
 //a fetches all data
-if ($user_id === "a") {
+if ($order_id === "a") {
     // SQL-kysely tilauksille
     // o = orders, oi = orderID, p.name = productName, pi.imagepath = productImage, p.desc = productDescription 
     $query = "
         SELECT
-            o.orderID,
-            o.orderDate,
-            o.totalPrice,
-            o.status AS orderStatus,
-            o.paymentStatus,
-            oi.productID,
-            oi.amount AS productAmount,
-            p.name AS productName,
-            p.price AS productPrice,
-            pi.imagePath AS productImage,
-            p.descr AS productDescription
+        o.orderID,
+        o.userID,
+        o.orderDate,
+        o.totalPrice,
+        o.status AS orderStatus,
+        o.paymentStatus,
+
+        GROUP_CONCAT(oi.productID) AS productIDs,
+        GROUP_CONCAT(oi.amount) AS productAmounts,
+        GROUP_CONCAT(p.name) AS productNames,
+        GROUP_CONCAT(p.price) AS productPrices,
+        GROUP_CONCAT(pi.imagePath) AS productImages,
+        GROUP_CONCAT(p.descr) AS productDescriptions
+
         FROM lahikauppadb.orders o
         JOIN lahikauppadb.order_items oi ON o.orderID = oi.orderID
         JOIN lahikauppadb.products p ON oi.productID = p.productID
         LEFT JOIN lahikauppadb.product_images pi ON p.productID = pi.productID
+
+        GROUP BY o.orderID
         ORDER BY o.orderDate DESC;
     ";
     // Yhteys ja kyselyn suoritus
@@ -62,29 +67,34 @@ if ($user_id === "a") {
     // o = orders, oi = orderID, p.name = productName, pi.imagepath = productImage, p.desc = productDescription 
     $query = "
         SELECT
-            o.orderID,
-            o.orderDate,
-            o.totalPrice,
-            o.status AS orderStatus,
-            o.paymentStatus,
-            oi.productID,
-            oi.amount AS productAmount,
-            p.name AS productName,
-            p.price AS productPrice,
-            pi.imagePath AS productImage,
-            p.descr AS productDescription
+        o.orderID,
+        o.userID,
+        o.orderDate,
+        o.totalPrice,
+        o.status AS orderStatus,
+        o.paymentStatus,
+
+        GROUP_CONCAT(oi.productID) AS productIDs,
+        GROUP_CONCAT(oi.amount) AS productAmounts,
+        GROUP_CONCAT(p.name) AS productNames,
+        GROUP_CONCAT(p.price) AS productPrices,
+        GROUP_CONCAT(pi.imagePath) AS productImages,
+        GROUP_CONCAT(p.descr) AS productDescriptions
+
         FROM lahikauppadb.orders o
         JOIN lahikauppadb.order_items oi ON o.orderID = oi.orderID
         JOIN lahikauppadb.products p ON oi.productID = p.productID
         LEFT JOIN lahikauppadb.product_images pi ON p.productID = pi.productID
-        WHERE o.userID = :user_id
+        WHERE o.orderID = :order_id
+
+        GROUP BY o.orderID
         ORDER BY o.orderDate DESC;
     ";
     // Yhteys ja kyselyn suoritus
     try {
         $conn = getDBConnection();
         $stmt = $conn->prepare($query);
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
         $stmt->execute();
         
         // Hae kaikki tulokset

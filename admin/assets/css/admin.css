@@ -48,14 +48,16 @@ a:hover {color: var(--paragraph-color);}
 .search {
     display: flex;
     flex-direction: row;
-    border: var(--header-color) solid 1px;
-    border-radius: 5px;
     height: calc(100% - 10px);
     width: calc(100% - 100px);
-    border-radius: 20px;
+    border-radius: 24px;
     margin: 5px;
     padding: 5px;
     gap: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
 }
 .btn-search {
     display: flex;
@@ -63,9 +65,18 @@ a:hover {color: var(--paragraph-color);}
     align-items: center;
     width: 100px;
     height: calc(100% - 10px);
-    border: var(--header-color) solid 1px;
-    border-radius: 5px;
-    border-radius: 20px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
+}
+.btn-search:hover {
+    transition: all 0.1s ease-in-out;
+    background: rgba(255, 255, 255, 0.316);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
 }
 .btn-search button {
     background-color: transparent;
@@ -77,17 +88,22 @@ a:hover {color: var(--paragraph-color);}
 }
 .select-type {
     width: 100px;
-    background-color: #808080;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
 }
 .textInput {
     width: 100%;
-    background-color: #808080;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
 }
 .output-div {
     display: flex;
@@ -96,11 +112,14 @@ a:hover {color: var(--paragraph-color);}
     width: calc(100% - 30px);
     margin: 15px;
     height: 600px;
-    border: var(--header-color) solid 1px;
     border-radius: 5px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     overflow: auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
 }
 .output-headers {
     display: grid;
@@ -127,11 +146,14 @@ a:hover {color: var(--paragraph-color);}
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    background-color: #434343;
     width: 450px;
     height: 650px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 24px 12px #0000005d;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 .middle-popup div {
     padding: 15px;
@@ -151,7 +173,9 @@ a:hover {color: var(--paragraph-color);}
     transform: translate(-50%,-50%);
     width: 100vw;
     height: 100vh;
-    background-color: #ffffff6b;
+    background-color: #0000006b;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 #popupContent {
     overflow-y: auto;
@@ -161,12 +185,17 @@ a:hover {color: var(--paragraph-color);}
     height: 40px;
     width: 40px;
     border: none;
-    background-color: #c34f4f;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(190, 39, 39, 0.3);
     color: #fff;
+    border-radius: 8px;
 }
 .btn-exit:hover {
-    transition: background-color 0.1s linear;
-    background-color: #ca7c7c;
+    transition: all 0.1s linear;
+    background: rgba(210, 14, 14, 0.76);
+    box-shadow: 0px 0px 50px 15px rgba(190, 39, 39, 0.607);
 }
 @media (max-width:800px) {
     .output-div {
@@ -221,6 +250,9 @@ a:hover {color: var(--paragraph-color);}
     }
     .main-content {
         max-width: unset;
+    }
+    .middle-popup{
+        backdrop-filter: blur(800px);
     }
 }
 @media (min-width:1800px) {
