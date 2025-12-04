@@ -18,10 +18,10 @@ include "header_footer/header.php";
 
 <div class="container">
     <h2 class="top-margin">Tuotteet</h2>
-
     <div id="productArea"></div>
 </div>
 
+<!-- Toats dilv -->
 <div id="toast"></div>
 
 <script>
