@@ -1,12 +1,32 @@
 <?php
 $is_getId = false;
 //get method of ID
-if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"]) && is_numeric($_GET["text"])) {
+if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
     //fetches content of api
 
-    //api path
-    $apiPath = "../../backend/api/get_orders.php";
+    //api path. $domain being the root folder where files exist
+    $domain = "http://localhost/verkkokauppaProjektityo-v1/";
+    $getId = $_GET["text"];
+    if ($getId === "kaikki" || $getId === "all") {
+        $getId = "a";
+    }
+    $apiPath = $domain . "backend/api/orders/get_orders.php?order_id=$getId";
     $is_getId = true;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $apiPath);
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    // Decode JSON to associative array
+    $data = json_decode($result, true);
+
+    // Check if decoding worked
+    if (!$data) {
+        echo "Invalid JSON or empty response";
+        exit;
+    }
 }
 
 ?>
@@ -32,11 +52,11 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"]) && i
             <form method="get">
                 <div class="search-nav">
                     <div class="search">
+                        <input type="text" name="text" class="textInput" placeholder="Haku" required>
                         <select name="type" class="select-type">
-                            <option value="val1">Tyyppi</option>
+                            <option value="val1" disabled selected>Tyyppi</option>
                             <option value="id">ID</option>
                         </select>
-                        <input type="text" name="text" class="textInput" required>
                     </div>
                     <div class="btn-search">
                         <button type="submit">Hae</button>
@@ -74,80 +94,89 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"]) && i
                 <div id="fetchOutput">
                     <?php
                     if ($is_getId):
-                        
+                        foreach ($data as $row):
                     ?>
-                    <div class="output-row rowJS" style="padding-inline:5px" id="r1">
+                    <div class="output-row rowJS" style="padding-inline:5px" id="r<?=$row["orderID"]?>">
                         <div>
                             <p id="r1-reservationID">
-                            <?=$_GET["text"]?>
+                                <?=$row["orderID"]?>
                             </p>
                         </div>
                         <div>
                             <p id="r1-reservationDate">
-                            ${order.orderDate}
+                                <?=$row["orderDate"]?>
                             </p>
                         </div>
                         <div>
                             <p id="r1-subtotal">
-                            ${order.totalPrice}
+                                <?=$row["totalPrice"]?>
                             </p>
                         </div>
                         <div>
                             <p id="r1-reservationState">
-                            ${order.orderStatus}
+                                <?=$row["orderStatus"]?>
                             </p>
                         </div>
                         <div>
                             <p id="r1-paymentState">
-                            ${order.paymentStatus}
+                                <?=$row["paymentStatus"]?>
                             </p>
                         </div>
                     </div>
                     <?php
-                    endif
+                        endforeach;
+                    endif;
                     ?>
                 </div>
             </div>
         </div>
     </div>
-    <div class="popup-div" id="popupBg" style="display:none;">
-        <div class="middle-popup" id="popup">
-            <div class="row space-between" style="background-color:#2b2b2b">
-                <h1 id="popupHeader">Tilaus 1</h1>
-                <button id="btnClose" class="btn-exit">X</button>
+    <div class="popup-bg" id="popup" style="display:none">
+        <div class="middle-popup col">
+            <div class="row space-between">
+                <h1>Tilauksen <span id="rowName"></span> tiedot</h1>
+                <button type="button" class="btn-exit" id="btnClose">X</button>
             </div>
-            <div class="col" id="popupContent">
+            <div class="col">
+                <div class="row space-between">
+                    <p>orderID</p>
+                    <p id="orderID"></p>
+                </div>
+                <div class="row space-between">
+                    <p>orderDate</p>
+                    <p id="orderDate"></p>
+                </div>
+                <div class="row space-between">
+                    <p>totalPrice</p>
+                    <p id="totalPrice"></p>
+                </div>
+                <div class="row space-between">
+                    <p>orderStatus</p>
+                    <p id="orderStatus"></p>
+                </div>
+                <div class="row space-between">
+                    <p>paymentStatus</p>
+                    <p id="paymentStatus"></p>
+                </div>
+                <div class="row space-between">
+                    <p>productIds</p>
+                    <p id="productIds"></p>
+                </div>
+                <div class="row space-between">
+                    <p>productAmounts</p>
+                    <p id="productAmounts"></p>
+                </div>
+                <div class="row space-between">
+                    <p>productNames</p>
+                    <p id="productNames"></p>
+                </div>
+                <div class="row space-between">
+                    <p>productPrices</p>
+                    <p id="productPrices"></p>
+                </div>
             </div>
         </div>
     </div>
-
-    <script>
-
-        const btnClose = document.getElementById("btnClose");
-        const popup = document.getElementById("popup");
-        const popupBg = document.getElementById("popupBg");
-
-        const popupHeader = document.getElementById("popupHeader");
-
-        //close function
-        btnClose.addEventListener("click", function() {
-            popupBg.style.display = "none";
-        });
-        //add onclick to each row, so they can be clicked
-        document.querySelectorAll('.rowJS').forEach(row => {
-            row.addEventListener('click', function (e) {
-
-                const rowId = row.id;
-                const reservationRowId = rowId + "-reservationID";
-                
-                fetchOrdersPopup(reservationRowId.textContent);
-
-                popupHeader.textContent = "Tiedot riviltä: " + rowId;
-                popupBg.style.display = "block";
-
-            });
-        });
-    </script>
-    <script src="assets/js/fetchOrdersPopup.js"></script>
+    <script src="assets/js/reservation.js"></script>
 </body>
 </html>
