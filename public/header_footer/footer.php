@@ -5,9 +5,9 @@
             <h3>Ruoka</h3>
             <p>Laadukasta lihaa suoraan kotiovellesi. Tuoreus ja laatu taattu.</p>
             <div class="social-links">
-                <a href="#" class="social-link"> <img src="assets/images/facebook.svg"></a>
-                <a href="#" class="social-link"> <img src="assets/images/instagram.svg"></a>
-                <a href="#" class="social-link"> <img src="assets/images/twitter.svg"></a>
+                <a href="https://github.com/Justus45" class="social-link"> <img src="assets/images/facebook.svg"></a>
+                <a href="https://github.com/VisualPlate" class="social-link"> <img src="assets/images/instagram.svg"></a>
+                <a href="https://github.com/sgee-del" class="social-link"> <img src="assets/images/twitter.svg"></a>
             </div>
         </div>
 
