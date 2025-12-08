@@ -148,7 +148,7 @@ a:hover {color: var(--paragraph-color);}
     grid-template-columns: repeat(8,2fr);
 }
 .output-headers div, .output-row div {
-    min-width: 105px;
+    width: 150px;
     height: 40px;
     text-align: center;
     display: flex;
@@ -224,6 +224,9 @@ a:hover {color: var(--paragraph-color);}
 }
 #fetchOutput {
     width: 100%;
+}
+.rowJS div {
+    width: 150px;
 }
 @media (max-width:800px) {
     .output-div {
