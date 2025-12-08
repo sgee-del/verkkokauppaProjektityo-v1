@@ -1,10 +1,10 @@
 <?php
+    require_once("includes/fetchDomain.php");
 $is_getId = false;
 //get method of ID
 if (isset($_GET["type"]) && isset($_GET["text"])) {
     
     //api path. $domain being the root folder where files exist
-    $domain = "http://localhost/verkkokauppaProjektityo-v1/";
     
     $apiPath = $domain . "backend/api/users/get_user.php?";
 
@@ -47,6 +47,24 @@ if (isset($_GET["type"]) && isset($_GET["text"])) {
     //fetches content of api
 
     $is_getId = true;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $apiPath);
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    // Decode JSON to associative array
+    $data = json_decode($result, true);
+
+    // Check if decoding worked
+    if (!$data) {
+        echo "Invalid JSON or empty response";
+        exit;
+    }
+} else {
+    $apiPath = $domain . "backend/api/users/get_user.php?";
+    //fetches content of api
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_URL, $apiPath);
@@ -130,7 +148,6 @@ if (isset($_GET["type"]) && isset($_GET["text"])) {
                 </div>
                 <div id="fetchOutput">
                     <?php
-                    if ($is_getId):
                         foreach ($data as $row):
                     ?>
                     <div class="output-row rowJS" style="padding-inline:5px" id="r<?=$row["userID"]?>">
@@ -162,7 +179,6 @@ if (isset($_GET["type"]) && isset($_GET["text"])) {
                     </div>
                     <?php
                         endforeach;
-                    endif;
                     ?>
                 </div>
             </div>
@@ -171,7 +187,7 @@ if (isset($_GET["type"]) && isset($_GET["text"])) {
     <div class="popup-bg" id="popup" style="display:none">
         <div class="middle-popup col">
             <div class="row space-between">
-                <h1>Tilauksen <span id="rowName"></span> tiedot</h1>
+                <h1>Käyttäjän <span id="rowName"></span> tiedot</h1>
                 <button type="button" class="btn-exit" id="btnClose">X</button>
             </div>
             <div class="col">

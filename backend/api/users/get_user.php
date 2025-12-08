@@ -270,5 +270,42 @@ elseif (isset($_GET["phone_id"])) {
 
     // Sulje tietokantayhteys
     $conn = null;
+} else {
+    
+    // SQL-kysely käyttäjille
+    $query = "
+        SELECT
+        u.userID,
+        u.email,
+        u.firstname,
+        u.lastname,
+        u.phone
+
+        FROM users u
+        ORDER BY u.userID;
+    ";
+    // Yhteys ja kyselyn suoritus
+    try {
+        $conn = getDBConnection();
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        
+        // Hae kaikki tulokset
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Näytä virhe tai tilaukset
+        if (empty($orders)) {
+            echo json_encode(["message" => "No users found"]);
+        } else {
+            // Palauta tilaukset JSON-muodossa
+            echo json_encode($orders);
+        }
+    } catch (PDOException $e) {
+        // Virhenkäsittely
+        echo json_encode(["error" => "Database error: " . $e->getMessage()]);
+    }
+
+    // Sulje tietokantayhteys
+    $conn = null;
 }
 ?>
