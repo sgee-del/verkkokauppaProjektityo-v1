@@ -1,11 +1,11 @@
 <?php
 $is_getId = false;
+require_once("includes/fetchDomain.php");
 //get method of ID
 if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
     //fetches content of api
 
     //api path. $domain being the root folder where files exist
-    $domain = "http://localhost/verkkokauppaProjektityo-v1/";
     $getId = $_GET["text"];
     if ($getId === "kaikki" || $getId === "all") {
         $getId = "a";
@@ -13,6 +13,23 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
 
     $apiPath = $domain . "backend/api/orders/get_orders.php?order_id=$getId";
     $is_getId = true;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $apiPath);
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    // Decode JSON to associative array
+    $data = json_decode($result, true);
+
+    // Check if decoding worked
+    if (!$data) {
+        echo "Invalid JSON or empty response";
+        exit;
+    }
+} else {
+    $apiPath = $domain . "backend/api/orders/get_orders.php?order_id=a";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_URL, $apiPath);
@@ -93,7 +110,6 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
                 </div>
                 <div id="fetchOutput">
                     <?php
-                    if ($is_getId):
                         foreach ($data as $row):
                     ?>
                     <div class="output-row rowJS" style="padding-inline:5px" id="r<?=$row["orderID"]?>">
@@ -125,7 +141,6 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
                     </div>
                     <?php
                         endforeach;
-                    endif;
                     ?>
                 </div>
             </div>
