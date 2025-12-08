@@ -10,6 +10,7 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
     if ($getId === "kaikki" || $getId === "all") {
         $getId = "a";
     }
+
     $apiPath = $domain . "backend/api/orders/get_orders.php?order_id=$getId";
     $is_getId = true;
     $ch = curl_init();
@@ -30,7 +31,6 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

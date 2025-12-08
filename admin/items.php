@@ -1,3 +1,37 @@
+<?php
+$is_getId = false;
+//get method of ID
+if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
+    //fetches content of api
+
+    //api path. $domain being the root folder where files exist
+    $domain = "http://localhost/verkkokauppaProjektityo-v1/";
+    $getId = $_GET["text"];
+    if ($getId === "kaikki" || $getId === "all") {
+        $getId = "a";
+    }
+    
+    $apiPath = $domain . "backend/api/products/get_products.php?product_id=$getId";
+    $is_getId = true;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $apiPath);
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    // Decode JSON to associative array
+    $data = json_decode($result, true);
+
+    // Check if decoding worked
+    if (!$data) {
+        echo "Invalid JSON or empty response";
+        exit;
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,49 +94,45 @@
                             Varasto
                         </p>
                     </div>
-                    <div>
-                        <p>
-                            Lisätty
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            Tiedot
-                        </p>
-                    </div>
                 </div>
-                <div class="output-row" style="padding-inline:5px">
-                    <div>
-                        <p>
-                        1
-                        </p>
-                    </div>
-                    <div>
-                        <img src="../public/assets/images/cart.png" style="height:100%">
-                    </div>
-                    <div>
-                        <p>
-                            Coop
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            Säilyke
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            12
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            24-11-2025
-                        </p>
-                    </div>
-                    <div>
-                        <a href="">Muokkaa</a>
-                    </div>
+                <div id="fetchOutput">
+                    <?php
+                    if ($is_getId):
+                        foreach ($data["categories"] as $category):
+                            foreach ($category["products"] as $product):
+                    ?>
+                                <div class="output-row rowJS" style="padding-inline:5px" id="r<?=$category["categoryID"]?>">
+                                    <div>
+                                        <p id="r1-categoryID">
+                                            <?=$product["productID"]?>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p id="r1-imagePath">
+                                            <img src="../<?=$product['imagePath']?>" style="height:30px;max-width:100px">
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p id="r1-name">
+                                            <?=$product["name"]?>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p id="r1-categoryName">
+                                            <?=$category["categoryName"]?>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p id="r1-stock">
+                                            <?=$product["stock"]?>
+                                        </p>
+                                    </div>
+                                </div>
+                                <?php
+                            endforeach;
+                        endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>
