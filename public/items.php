@@ -12,6 +12,7 @@ include "header_footer/header.php";
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/items.css">
+     <link rel="stylesheet" href="assets/css/footer.css">
 </head>
 
 <body>
@@ -108,6 +109,8 @@ function showToast(msg) {
 }
 
 </script>
-
+<?php
+ include "header_footer/footer.php";  // Include footer
+ ?>
 </body>
 </html>

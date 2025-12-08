@@ -16,6 +16,8 @@ include "header_footer/header_frontend.php";  // Include header
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+
 </head>
 <body>
     <?php
@@ -66,8 +68,9 @@ include "header_footer/header_frontend.php";  // Include header
         </div>
     </section>
  <!-- Yhteystiedot-osio -->
-    <section id="yhteystiedot" class="contact">
-        <h2>Ota yhteyttä</h2>
+<section id="yhteystiedot" class="contact">
+    <h2>Ota yhteyttä</h2>
+    <div class="contact-wrapper">
         <div class="contact-info">
             <div class="contact-item">
                 <h3>📍 Osoite</h3>
@@ -81,11 +84,21 @@ include "header_footer/header_frontend.php";  // Include header
                 <h3>📞 Puhelin</h3>
                 <p>+358 44 978 7395</p>
             </div>
-            
         </div>
-    </section>
+        <div class="contact-map">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29081.99022616638!2d27.689296267236323!3d62.89866151801153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfi!2sfi!4v1765178956715!5m2!1sfi!2sfi"
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+</section>
 
-
- 
+<?php
+ include "header_footer/footer.php";  // Include footer
+ ?>
 </body>
+
 </html>

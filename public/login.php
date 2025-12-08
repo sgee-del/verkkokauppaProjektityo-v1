@@ -19,6 +19,7 @@ if (isset($_GET['registration']) && $_GET['registration'] === 'success') {
 <link rel="stylesheet" href="assets/css/root.css">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
 </head>
 
 <body>
@@ -112,5 +113,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     }
 });
 </script>
-
+<?php
+ include "header_footer/footer.php";  // Include footer
+ ?>
 </body>

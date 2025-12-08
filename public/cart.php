@@ -142,6 +142,5 @@ include "header_footer/header.php";
     }
 
 </script>
-
 </body>
 </html>
