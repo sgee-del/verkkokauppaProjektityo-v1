@@ -17,9 +17,12 @@ include "header_footer/header.php";
 
 <body>
 
-<div class="container">
-    <h2 class="top-margin">Tuotteet</h2>
+<div class="products-hero">
+    <div class="products-hero-content">
+    <h1 class="products-hero-title">Tuotteet</h1>
+    <p class="products-hero-subtitle">Tuoreimmat ja laadukkaimmat lihatuotteet, suoraan kotiovellesi.</p>
     <div id="productArea"></div>
+</div>
 </div>
 
 <!-- Toats dilv -->
@@ -34,7 +37,7 @@ async function loadProducts() {
 
     if (!data.success) {
         document.getElementById("productArea").innerHTML =
-            "<p>Virhe tuotteiden lataamisessa.</p>";
+            "<p>⚠️Virhe tuotteiden lataamisessa.</p>";
         return;
     }
 
@@ -91,9 +94,9 @@ async function addToCart(productID) {
     const data = await res.json();
 
     if (data.success) {
-        showToast("Tuote lisätty ostoskoriin!");
+        showToast("Tuote lisätty ostoskoriin!✅");
     } else {
-        showToast(data.message || "Lisääminen epäonnistui.");
+        showToast(data.message || "⚠️Lisääminen epäonnistui.");
     }
 }
 
