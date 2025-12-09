@@ -33,7 +33,6 @@ if (!$data) {
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fi">
 <head>
