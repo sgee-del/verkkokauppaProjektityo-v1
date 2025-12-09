@@ -3,26 +3,54 @@ header("Content-Type: application/json");
 
 require_once "../../config/db_connect.php";
 
+
 $pdo = getDBConnection();
 
-// Tehdän SQL-kysely, joka hakee kaikki kategoriat ja tueotteet kerralla
-// SELECT valitsee kaikki tarvittavat tiedot.
-// LEFT JOIN yhdistää categories taulut p ja c ja pi yhdistää productimage taulun t uotteeeseen ID:n mukaan
-// Järjestetään kategorianmukaan sitten tuottee nnimen muakan aakkosjärjestyksessä
-$stmt = $pdo->query("
-    SELECT 
-        c.categoryID,
-        c.categoryName,
-        p.productID,
-        p.name AS productName,
-        p.price,
-        pi.imagePath,
-        p.stock
-    FROM categories c
-    LEFT JOIN products p ON p.categoryID = c.categoryID
-    LEFT JOIN product_images pi ON p.productID = pi.productID
-    ORDER BY c.categoryName, p.name;
-");
+//sql tietylle kategorialle
+if (isset($_GET["category"])) {
+
+    $category_name = trim($_GET["category"] ?? "Broileri");
+
+    $stmt = $pdo->prepare("
+        SELECT 
+            c.categoryID,
+            c.categoryName,
+            p.productID,
+            p.name AS productName,
+            p.price,
+            pi.imagePath,
+            p.stock
+        FROM categories c
+        LEFT JOIN products p ON p.categoryID = c.categoryID
+        LEFT JOIN product_images pi ON p.productID = pi.productID
+        WHERE c.categoryName = :category_name
+        ORDER BY c.categoryName, p.name;
+    ");
+    $stmt->bindParam(':category_name', $category_name, PDO::PARAM_INT);
+    $stmt->execute();
+
+} else {
+    // Tehdän SQL-kysely, joka hakee kaikki kategoriat ja tueotteet kerralla
+    // SELECT valitsee kaikki tarvittavat tiedot.
+    // LEFT JOIN yhdistää categories taulut p ja c ja pi yhdistää productimage taulun t uotteeeseen ID:n mukaan
+    // Järjestetään kategorianmukaan sitten tuottee nnimen muakan aakkosjärjestyksessä
+    $stmt = $pdo->query("
+        SELECT 
+            c.categoryID,
+            c.categoryName,
+            p.productID,
+            p.name AS productName,
+            p.price,
+            pi.imagePath,
+            p.stock
+        FROM categories c
+        LEFT JOIN products p ON p.categoryID = c.categoryID
+        LEFT JOIN product_images pi ON p.productID = pi.productID
+        ORDER BY c.categoryName, p.name;
+    ");
+}
+
+
 
 // Haetaan kaikki kyselyn palauttamat rivit ja tallennetaan ne `$rows`-muuttujaan.
 $rows = $stmt->fetchAll();
