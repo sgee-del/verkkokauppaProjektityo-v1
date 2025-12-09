@@ -46,11 +46,11 @@ if (!$data) {
 <body>
     <div class="container">
         <div class="header">
-            <h2 class="top-margin">Tuotteet / Kategoria1</h2>
+            <h2 class="top-margin">Tuotteet / <?=$data["categories"][0]["categoryName"]?></h2>
         </div>
         <div class="col">
             <div class="row space-between nav-align">
-                <h1 class="top-margin">Kategoria1</h1>
+                <h1 class="top-margin"><?=$data["categories"][0]["categoryName"]?></h1>
                 <a href="items.php" class="check-btn" style="width:120px">Takaisin</a>
             </div>
             <div class="categoryRow top-margin">
