@@ -249,6 +249,8 @@ html {
   body {
     background-position: left;
   }
+}
+@media (max-width:1000px) {
   .mob-show {
     display: block;
   }
@@ -256,7 +258,7 @@ html {
     display: none;
   }
 }
-@media (min-width:600px) {
+@media (min-width:1000px) {
   .mob-hidden {
     display: block;
   }

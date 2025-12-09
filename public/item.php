@@ -52,23 +52,42 @@ if (isset($_GET['product_id'])) {
 
     <div class="container">
         <div class="cart-box"> 
-            <div class="left-section">
-                <h1><?= htmlspecialchars($product['name']) ?></h1>
-                <div class="price"><?= number_format($product['price'], 2) ?> €</div>
-                <p class="description"><?= nl2br(htmlspecialchars($product['descr'])) ?></p>
-                <div class="features">Ominaisuudet</div>
-
-                <!-- Määärän valinta -->
-                <div class="quantity-section">
-                    <button class="quantity-btn-minus" onclick="updateQuantity('minus')">−</button>
-                    <div class="quantity-display" id="quantity-display">1</div>
-                    <button class="quantity-btn-plus" onclick="updateQuantity('plus')">+</button>
+            <div class="left-section col space-between">
+                <div>
+                    <h1><?= htmlspecialchars($product['name']) ?></h1>
+                    <div class="price"><?= number_format($product['price'], 2) ?> €</div>
+                    <p class="description"><?= nl2br(htmlspecialchars($product['descr'])) ?></p>
+                    <div class="features">
+                        <h3>Kuvaus</h3>
+                        <p><?=$product["descr"]?></p>
+                        <h3>Ominaisuudet</h3>
+                        <div class="row space-between">
+                            <p>Varastossa: </p>
+                            <p><?=$product["stock"]?></p>
+                        </div>
+                        <div class="row space-between">
+                            <p>Paino (kg): </p>
+                            <p><?=$product["weightKg"]?></p>
+                        </div>
+                        <div class="row space-between">
+                            <p>Tuottaja: </p>
+                            <p><?=$product["origin"]?></p>
+                        </div>
+                    </div>
                 </div>
+                <div class="item-align">
+                    <!-- Määärän valinta -->
+                    <div class="quantity-section">
+                        <button class="quantity-btn-minus" onclick="updateQuantity('minus')">−</button>
+                        <div class="quantity-display" id="quantity-display">1</div>
+                        <button class="quantity-btn-plus" onclick="updateQuantity('plus')">+</button>
+                    </div>
 
-                <!-- Lisää oostoskoriin funktio -->
-                <button class="add-btn" onclick="addToCart(<?= $product['productID'] ?>)">
-                    Lisää ostoskoriin
-                </button>
+                    <!-- Lisää oostoskoriin funktio -->
+                    <button class="add-btn" onclick="addToCart(<?= $product['productID'] ?>)">
+                        Lisää ostoskoriin
+                    </button>
+                </div>
             </div>
 
             <div class="right-section">
