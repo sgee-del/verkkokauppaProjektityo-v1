@@ -70,15 +70,20 @@
   .features {
       font-size: 1rem;
       margin-bottom: 50px;
-      padding-top: 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-block: 1px solid rgba(255, 255, 255, 0.3);
+      max-height: 250px;
+      overflow: auto;
+      padding-inline: 10px;
   }
 
   .quantity-section {
       display: flex;
       gap: 15px;
       align-items: center;
-      margin-bottom: 20px;
+      border: 1px solid #c0c0c0;
+      max-width: 300px;
+      width: fit-content;
+      border-radius: 5px;
   }
 
   .quantity-control {
@@ -112,6 +117,7 @@
       min-width: 60px;
       text-align: center;
       color: white;
+      min-width: 100px;
   }
 
   .add-to-cart-btn {
@@ -192,7 +198,6 @@
       border-radius: 4px;
       transition: all 0.3s ease;
       cursor: pointer;
-      margin-top: 10px;
       width: 50%;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
@@ -200,6 +205,13 @@
   .add-btn:hover {
       background-color: #8b8b8b;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .item-align {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   @media (max-width: 1368px) {
@@ -222,7 +234,11 @@
           align-items: flex-start;
           width: 100%;
       }
-
+      .left-section {
+        max-width: unset;
+        width: 100%;
+        margin: 0;
+      }
       .product-images {
           max-width: 100%;
       }
@@ -254,12 +270,26 @@
           font-size: 2rem;
       }
 
-      .quantity-section {
-          flex-direction: column;
-          align-items: stretch;
-      }
-
       .add-to-cart-btn {
           width: 100%;
+      }
+      .item-align {
+        flex-direction: column;
+        gap: 25px;
+      }
+      .add-btn {
+        width: 100%;
+      }
+      .quantity-btn-minus, .quantity-btn-plus {
+        max-width: 50px;
+      }
+      .quantity-section {
+        width: 100%;
+        max-width: unset;
+        display: flex;
+        justify-content: space-between;
+      }
+      .quantity-display {
+        min-width: unset;
       }
   }

@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php if (isset($_SESSION['userID']) && isset($_SESSION['firstname'])): ?>
             <!-- Näytetään, kun käyttäjä on kirjautunut sisään -->
              <a href="my_orders.php" class="nav-link mob-hidden">Ostoshistoria</a>
-            <span class="nav-greeting">Hei, <?php echo htmlspecialchars($_SESSION['firstname']); ?>!</span>
+            <span class="nav-greeting mob-hidden">Hei, <?php echo htmlspecialchars($_SESSION['firstname']); ?>!</span>
             <a href="logout.php" class="nav-link mob-hidden" title="Kirjaudu ulos">
                 <img src="assets/images/logout.svg" class="nav-icon">
             </a>
