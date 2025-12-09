@@ -30,7 +30,9 @@ include "header_footer/header_frontend.php";  // Include header
             </div>
             <div class="row space-between w-100 column">
                 <h1 class = "text-primary">Ruoka <br>verkko <br> kauppa </h1>
-                <button class="class-button">Valikoima</button>
+              <button class="class-button" onclick="window.location.href='items.php'">
+  Valikoima
+</button>
             </div>
         </div>
     </div>
