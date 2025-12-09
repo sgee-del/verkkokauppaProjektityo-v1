@@ -142,7 +142,8 @@ html {
 }
 
 .top-nav {
-  background-color: #152620;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(5px);
   border-bottom: #c4c4c4ff solid 1px;
 }
 
@@ -199,17 +200,20 @@ html {
   filter: invert(20%);
 }
 .navUi {
-  background-color: #152620;
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(5px);
   border-bottom: 1px solid #c8c8c8;
 }
 .navUi a {
   color: #ffffff;
   text-decoration: none;
-  padding-inline: 10px;
+  margin-inline: 10px;
 }
 .navUi a:hover {
   transition: all 0.17s ease-in;
   background-color: #00000057;
+  padding-inline: 20px;
+  margin-inline: 0px;
 }
 @font-face {
   font-family: outfit;

@@ -46,7 +46,7 @@ async function loadProducts() {
     data.categories.forEach(cat => {
         html += `
         <div class="category-block">
-            <h3 class="category-title">${cat.categoryName}</h3>
+            <a href="categories.php?category=${cat.categoryName}" style="text-decoration:none;"><h3 class="category-title" style="color:#fff;">${cat.categoryName}</h3></a>
 
             <div class="product-grid">
         `;
