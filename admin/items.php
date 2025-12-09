@@ -1,6 +1,32 @@
 <?php
 require_once("includes/fetchDomain.php");
 
+
+if (isset($_GET["delete"]) && is_numeric($_GET["delete"])) {
+    //delete function here
+
+    $getId = $_GET["delete"];
+
+    $apiPath = $domain . "backend/api/products/delete_product.php?product_id=$getId";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $apiPath);
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    // Decode JSON to associative array
+    $data = json_decode($result, true);
+
+    // Check if decoding worked
+    if (!$data) {
+        echo "Invalid JSON or empty response";
+        exit;
+    }
+    header("location: items.php");
+    exit;
+}
+
 $is_getId = false;
 //get method of ID
 if (isset($_GET["type"]) && isset($_GET["text"]) && $_GET["type"] !== "val1") {
@@ -203,29 +229,35 @@ if (isset($_GET["type"]) && isset($_GET["text"]) && $_GET["type"] !== "val1") {
         </div>
     </div>
     <div class="popup-bg" id="popup" style="display:none">
-        <div class="middle-popup col">
-            <div class="row space-between">
-                <h1>Tuotteen <span id="rowName"></span> tiedot</h1>
-                <button type="button" class="btn-exit" id="btnClose">X</button>
-            </div>
+        <div class="middle-popup col space-between">
             <div class="col">
-                <img src="assets/images/cart.png" id="productImg">
                 <div class="row space-between">
-                    <p>Tuote ID</p>
-                    <p id="productID"></p>
+                    <h1>Tuotteen <span id="rowName"></span> tiedot</h1>
+                    <button type="button" class="btn-exit" id="btnClose">X</button>
                 </div>
-                <div class="row space-between">
-                    <p>Nimi</p>
-                    <p id="productName"></p>
+                <div class="col">
+                    <img src="assets/images/cart.png" id="productImg">
+                    <div class="row space-between">
+                        <p>Tuote ID</p>
+                        <p id="productID"></p>
+                    </div>
+                    <div class="row space-between">
+                        <p>Nimi</p>
+                        <p id="productName"></p>
+                    </div>
+                    <div class="row space-between">
+                        <p>Kategoria</p>
+                        <p id="productCategory"></p>
+                    </div>
+                    <div class="row space-between">
+                        <p>Varasto</p>
+                        <p id="stock"></p>
+                    </div>
                 </div>
-                <div class="row space-between">
-                    <p>Kategoria</p>
-                    <p id="productCategory"></p>
-                </div>
-                <div class="row space-between">
-                    <p>Varasto</p>
-                    <p id="stock"></p>
-                </div>
+            </div>
+            <div class="row space-between">
+                <a href="edit.php?type=item&id=" class="popup-link" id="linkEdit">Muokkaa</a>
+                <a href="items.php?delete=" class="popup-link" id="linkDelete">Poista</a>
             </div>
         </div>
     </div>

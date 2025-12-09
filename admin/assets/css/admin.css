@@ -228,6 +228,15 @@ a:hover {color: var(--paragraph-color);}
 .rowJS div {
     width: 150px;
 }
+.popup-link {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    text-align: center;
+}
+.popup-link:hover {
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+}
 @media (max-width:800px) {
     .output-div {
         align-items:first baseline;

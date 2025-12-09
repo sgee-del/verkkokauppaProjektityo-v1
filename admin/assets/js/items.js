@@ -10,6 +10,8 @@ const productImg = document.getElementById("productImg");
 const productName = document.getElementById("productName");
 const productCategory = document.getElementById("productCategory");
 const stock = document.getElementById("stock");
+const linkEdit = document.getElementById("linkEdit");
+const linkDelete = document.getElementById("linkDelete");
 
 //adds eventlistener to every rowJS object
 
@@ -54,6 +56,14 @@ function fetchOrder(id) {
         productName.textContent = res[0]["productName"];
         productCategory.textContent = res[0]["categoryName"];
         stock.textContent = res[0]["stock"];
+
+
+        
+        linkDelete.href = "items.php?delete=";
+        linkEdit.href = "edit.php?type=item&id=";
+
+        linkDelete.href += res[0]["productID"];
+        linkEdit.href += res[0]["productID"];
 
     } catch (error) {
         console.error(`Fetch error: ${error.message}`);
