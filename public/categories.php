@@ -5,6 +5,33 @@ require_once '../backend/helpers/auth.php';      // Tunnistautumisen apufunktiot
 require_once '../backend/helpers/validation.php'; // Validointifunktiot
 require_once '../backend/helpers/password_helper.php'; // Salasanan apufunktiot
 include "header_footer/header.php";  // Include header
+
+require_once('header_footer/fetchDomain.php');
+
+if (!isset($_GET["category"])) {
+    header("location: items.php");
+    exit;
+}
+
+$category = $_GET["category"];
+
+$apiPath = $domain . "backend/api/products/get_products.php?category=$category";
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_URL, $apiPath);
+
+$result = curl_exec($ch);
+curl_close($ch);
+
+// Decode JSON to associative array
+$data = json_decode($result, true);
+
+// Check if decoding worked
+if (!$data) {
+    echo "Invalid JSON or empty response";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,56 +55,34 @@ include "header_footer/header.php";  // Include header
                 <a href="items.php" class="check-btn" style="width:120px">Takaisin</a>
             </div>
             <div class="categoryRow top-margin">
-                <div class="col space-between box">
+                <?php
+                foreach ($data["categories"] as $category):
+                    foreach ($category["products"] as $product):
+                ?>
+                <div class="col space-between box" onclick=redirectToItem(<?=$product["productID"]?>)>
                     <div id="row-items">
-                        <img src="assets/images/background/green.svg" alt="Kuva" class="product-img">
+                        <img src="../<?=$product["imagePath"]?>" alt="Kuva" class="product-img">
                         <div class="row space-between nav-align">
-                            <h2>Makkara</h2>
-                            <h4>12.99</h4>
+                            <h2><?=$product["name"]?></h2>
+                            <h4><?=$product["price"]?></h4>
                         </div>
                     </div>
                     <div class="row space-between">
                         <button class="check-btn">Lisää ostoskoriin</button>
                     </div>
                 </div>
-                <div class="col space-between box">
-                    <div id="row-items">
-                        <img src="assets/images/background/green.svg" alt="Kuva" class="product-img">
-                        <div class="row space-between nav-align">
-                            <h2>Makkara</h2>
-                            <h4>12.99</h4>
-                        </div>
-                    </div>
-                    <div class="row space-between">
-                        <button class="check-btn">Lisää ostoskoriin</button>
-                    </div>
-                </div>
-                <div class="col space-between box">
-                    <div id="row-items">
-                        <img src="assets/images/background/green.svg" alt="Kuva" class="product-img">
-                        <div class="row space-between nav-align">
-                            <h2>Makkara</h2>
-                            <h4>12.99</h4>
-                        </div>
-                    </div>
-                    <div class="row space-between">
-                        <button class="check-btn">Lisää ostoskoriin</button>
-                    </div>
-                </div>
-                <div class="col space-between box">
-                    <div id="row-items">
-                        <img src="assets/images/background/green.svg" alt="Kuva" class="product-img">
-                        <div class="row space-between nav-align">
-                            <h2>Makkara</h2>
-                            <h4>12.99</h4>
-                        </div>
-                    </div>
-                    <div class="row space-between">
-                        <button class="check-btn">Lisää ostoskoriin</button>
-                    </div>
-                </div>
+                <?php
+                    endforeach;
+                endforeach;
+                ?>
+
             </div>
         </div>
     </div>
+    <script>
+        function redirectToItem(productID) {
+            window.location.href = "item.php?product_id=" + productID
+        }
+    </script>
 </body>
 </html>
