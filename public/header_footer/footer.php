@@ -14,9 +14,9 @@
         <div class="footer-section">
             <h3>Pikalinkit</h3>
             <ul class="footer-links">
-                <li><a href="#palvelut">Palvelut</a></li>
-                <li><a href="#tietoa">Tietoa meistä</a></li>
-                <li><a href="#yhteystiedot">Yhteystiedot</a></li>
+                <li><a href="../public/index.php #palvelut">Palvelut</a></li>
+                <li><a href="../public/index.php #tietoa">Tietoa meistä</a></li>
+                <li><a href="../public/index.php #yhteystiedot">Yhteystiedot</a></li>
             </ul>
         </div>
 
