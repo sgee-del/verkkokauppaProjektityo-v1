@@ -45,12 +45,12 @@ if (!$data) {
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <div class="category-block">
             <h2 class="top-margin">Tuotteet / <?=$data["categories"][0]["categoryName"]?></h2>
         </div>
         <div class="col">
             <div class="row space-between nav-align">
-                <h1 class="top-margin"><?=$data["categories"][0]["categoryName"]?></h1>
+                <h3 class="top-margin category-title" style="width:100%"><?=$data["categories"][0]["categoryName"]?></h3>
                 <a href="items.php" class="check-btn" style="width:120px">Takaisin</a>
             </div>
             <div class="categoryRow top-margin">
