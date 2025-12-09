@@ -37,7 +37,7 @@ include "header_footer/header.php";
 <body>
 
 <div class="orders-container">
-
+  <div class="cart-box"> 
     <h2>Omat tilaukset</h2>
     <p>Täältä näet kaikki tekemäsi tilaukset.</p>
 
@@ -82,7 +82,7 @@ include "header_footer/header.php";
         </div>
 
     <?php endforeach; ?>
-
+  </div>
 </div>
 
 </body>
