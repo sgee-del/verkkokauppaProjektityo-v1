@@ -34,9 +34,6 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
-<h1>Hallintapaneeli / Tilaukset</h1>
-
-
 
 <div class="max-1200">
         <?php
