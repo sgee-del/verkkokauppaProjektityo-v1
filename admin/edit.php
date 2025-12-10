@@ -1,5 +1,7 @@
 <?php
 require_once("includes/fetchDomain.php");
+require_once "../backend/helpers/admin_auth.php";
+require_admin($pdo); 
 //if not given any type. type means the type of request, it can be user, item or reservation
 if (!isset($_GET["type"]) || !isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     header("location: items.php");

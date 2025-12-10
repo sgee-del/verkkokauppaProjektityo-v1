@@ -1,5 +1,7 @@
 <?php
 require_once("includes/fetchDomain.php");
+require_once "../backend/helpers/admin_auth.php";
+require_admin($pdo); 
 
 
 if (isset($_GET["delete"]) && is_numeric($_GET["delete"])) {

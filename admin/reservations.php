@@ -1,4 +1,6 @@
 <?php
+require_once "../backend/helpers/admin_auth.php";
+require_admin($pdo); 
 $is_getId = false;
 require_once("includes/fetchDomain.php");
 //get method of ID

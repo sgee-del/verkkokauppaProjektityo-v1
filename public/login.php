@@ -2,11 +2,20 @@
 session_start();
 include "header_footer/header.php";
 
-// Jos käyttäjä on jo kirjautunut → etusivulle
+// Jos käyttäjä on jo kirjautunut → ohjataan etusivulle tai admin-sivulle
 if (isset($_SESSION['userID'])) {
-    header("Location: index.php");
+
+    require_once 'admin_auth.php'; // Varmistetaan, että auth ja admin_auth on ladattu
+
+    // Tarkistetaan onko käyttäjä admin
+    if (is_admin($pdo)) {
+        header("Location: admin_dashboard.php");  // Adminin ohjaus
+    } else {
+        header("Location: index.php");  // Tavan käyttäjä ohjataan etusivulle
+    }
     exit;
 }
+
 
 // Näytetään onnistunut rekisteröintiviesti
 $registration_success_message = '';
