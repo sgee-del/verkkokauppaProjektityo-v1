@@ -3,7 +3,7 @@
 }
 
 body {
-  color: #ffffff;
+  color: #707070;
   color: var(--paragraph-color);
   font-family: outfit;
   font-weight: 100;
@@ -171,6 +171,11 @@ html {
   margin: 0;
 }
 
+.nav-products:hover {
+   cursor: pointer;
+  transition: filter 0.1s linear;
+  filter: invert(30%);
+}
 .nav-products h2 {
   font-weight: 700;
   font-size: 35px;
