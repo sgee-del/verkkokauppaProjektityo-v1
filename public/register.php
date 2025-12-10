@@ -15,7 +15,6 @@ include "header_footer/header.php";
         <div class="col-md-6">
             <div class="cart-box">
                 <div class="card">
-                <h3 class="text-center">Rekisteröidy</h3>
                     <div class="card-header">
                     </div>
 
