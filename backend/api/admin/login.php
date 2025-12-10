@@ -1,38 +1,44 @@
 <?php
-require_once "../../../config/db_connect.php";
-
 header("Content-Type: application/json");
+session_start();
 
-$input = json_decode(file_get_contents("php://input"), true); // FIXED
+require_once __DIR__ . "/../../config/db_connect.php";
+require_once __DIR__ . "/../../helpers/validation.php";
+require_once __DIR__ . "/../../helpers/password_helper.php";
 
-$email = $input['email'] ?? '';
-$password = $input['password'] ?? '';
 
+$pdo = getDBConnection();
+
+$data = json_decode(file_get_contents("php://input"), true);
 $errors = [];
 
-if (empty($email)) $errors['email'] = "Sähköposti on pakollinen";
-if (empty($password)) $errors['password'] = "Salasana on pakollinen";
+$email = sanitize_input($data["email"] ?? "");
+$password = $data["password"] ?? "";
+
+// Validointi
+if (is_empty($email)) $errors["email"] = "Sähköposti on pakollinen.";
+if (is_empty($password)) $errors["password"] = "Salasana on pakollinen.";
 
 if (!empty($errors)) {
     echo json_encode(["success" => false, "errors" => $errors]);
     exit;
 }
 
-$stm = $pdo->prepare("SELECT * FROM admins WHERE email = ?");
-$stm->execute([$email]);
-$admin = $stm->fetch();
+// Haetaan admin tietokannasta
+$stmt = $pdo->prepare("SELECT adminID, email, passHash, roleID FROM admins WHERE email = ?");
+$stmt->execute([$email]);
+$admin = $stmt->fetch();
 
-if (!$admin || !password_verify($password, $admin['passHash'])) {
-    echo json_encode([
-        "success" => false,
-        "errors" => ["login" => "Virheellinen sähköposti tai salasana"]
-    ]);
+if (!$admin || !password_verify($password, $admin["passHash"])) {
+    echo json_encode(["success" => false, "errors" => ["form" => "Virheellinen sähköposti tai salasana."]]);
     exit;
 }
 
-session_start();
-$_SESSION['adminID'] = $admin['adminID'];
-$_SESSION['roleID'] = $admin['roleID'];
+// Kirjautuminen OK
+session_regenerate_id(true);
+$_SESSION["adminID"] = $admin["adminID"];
+$_SESSION["email"] = $admin["email"];
+$_SESSION["roleID"] = $admin["roleID"];
 
 echo json_encode(["success" => true]);
 exit;
