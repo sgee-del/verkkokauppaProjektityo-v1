@@ -6,7 +6,6 @@ require_once __DIR__ . "/../../config/db_connect.php";
 require_once __DIR__ . "/../../helpers/validation.php";
 require_once __DIR__ . "/../../helpers/password_helper.php";
 
-
 $pdo = getDBConnection();
 
 $data = json_decode(file_get_contents("php://input"), true);
@@ -27,7 +26,7 @@ if (!empty($errors)) {
 // Haetaan admin tietokannasta
 $stmt = $pdo->prepare("SELECT adminID, email, passHash, roleID FROM admins WHERE email = ?");
 $stmt->execute([$email]);
-$admin = $stmt->fetch();
+$admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$admin || !password_verify($password, $admin["passHash"])) {
     echo json_encode(["success" => false, "errors" => ["form" => "Virheellinen sähköposti tai salasana."]]);

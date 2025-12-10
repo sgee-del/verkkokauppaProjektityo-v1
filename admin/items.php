@@ -1,8 +1,12 @@
 <?php
-require_once("includes/fetchDomain.php");
+require_once "../backend/config/db_connect.php";
 require_once "../backend/helpers/admin_auth.php";
-require_admin($pdo); 
 
+$pdo = getDBConnection();
+
+
+// Tiedosto polku
+$domain = "http://localhost/verkkokauppaProjektityo-v1/";
 
 if (isset($_GET["delete"]) && is_numeric($_GET["delete"])) {
     //delete function here
@@ -28,6 +32,7 @@ if (isset($_GET["delete"]) && is_numeric($_GET["delete"])) {
     header("location: items.php");
     exit;
 }
+
 
 $is_getId = false;
 //get method of ID
@@ -74,7 +79,7 @@ if (isset($_GET["type"]) && isset($_GET["text"]) && $_GET["type"] !== "val1") {
         exit;
     }
 }
- if (!$is_getId) {
+if (!$is_getId) {
     $apiPath = $domain . "backend/api/products/get_products.php";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -91,11 +96,12 @@ if (isset($_GET["type"]) && isset($_GET["text"]) && $_GET["type"] !== "val1") {
         echo "Invalid JSON or empty response";
         exit;
     }
- }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,6 +110,7 @@ if (isset($_GET["type"]) && isset($_GET["text"]) && $_GET["type"] !== "val1") {
     <link rel="stylesheet" href="../admin/assets/css/admin.css">
     <title>Admin</title>
 </head>
+
 <body>
     <div class="max-1200">
         <?php
@@ -161,69 +168,69 @@ if (isset($_GET["type"]) && isset($_GET["text"]) && $_GET["type"] !== "val1") {
                         //fetch all possible items
                         foreach ($data["categories"] as $category):
                             foreach ($category["products"] as $product):
-                            ?>
-                                <div class="output-row rowJS" style="padding-inline:5px" id="r<?=$product["productID"]?>">
+                    ?>
+                                <div class="output-row rowJS" style="padding-inline:5px" id="r<?= $product["productID"] ?>">
                                     <div>
                                         <p id="r1-productID">
-                                            <?=$product["productID"]?>
+                                            <?= $product["productID"] ?>
                                         </p>
                                     </div>
                                     <div>
                                         <p id="r1-imagePath">
-                                            <img src="../<?=$product['imagePath']?>" style="height:30px;max-width:100px">
+                                            <img src="../<?= $product['imagePath'] ?>" style="height:30px;max-width:100px">
                                         </p>
                                     </div>
                                     <div>
                                         <p id="r1-name">
-                                            <?=$product["name"]?>
+                                            <?= $product["name"] ?>
                                         </p>
                                     </div>
                                     <div>
                                         <p id="r1-categoryName">
-                                            <?=$category["categoryName"]?>
+                                            <?= $category["categoryName"] ?>
                                         </p>
                                     </div>
                                     <div>
                                         <p id="r1-stock">
-                                            <?=$product["stock"]?>
+                                            <?= $product["stock"] ?>
                                         </p>
                                     </div>
                                 </div>
-                                <?php
+                            <?php
                             endforeach;
                         endforeach;
                     else:
                         //when only specific data is being fetched
-                        foreach ($data as $row):?>
-                            <div class="output-row rowJS" style="padding-inline:5px" id="r<?=$row["productID"]?>">
+                        foreach ($data as $row): ?>
+                            <div class="output-row rowJS" style="padding-inline:5px" id="r<?= $row["productID"] ?>">
                                 <div>
                                     <p id="r1-categoryID">
-                                        <?=$row["productID"]?>
+                                        <?= $row["productID"] ?>
                                     </p>
                                 </div>
                                 <div>
                                     <p id="r1-imagePath">
-                                        <img src="../<?=$row['imagePath']?>" style="height:30px;max-width:100px">
+                                        <img src="../<?= $row['imagePath'] ?>" style="height:30px;max-width:100px">
                                     </p>
                                 </div>
                                 <div>
                                     <p id="r1-productName">
-                                        <?=$row["productName"]?>
+                                        <?= $row["productName"] ?>
                                     </p>
                                 </div>
                                 <div>
                                     <p id="r1-categoryID">
-                                        <?=$row["categoryName"]?>
+                                        <?= $row["categoryName"] ?>
                                     </p>
                                 </div>
                                 <div>
                                     <p id="r1-stock">
-                                        <?=$row["stock"]?>
+                                        <?= $row["stock"] ?>
                                     </p>
                                 </div>
                             </div>
                     <?php
-                    endforeach;
+                        endforeach;
                     endif;
                     ?>
                 </div>
@@ -265,4 +272,5 @@ if (isset($_GET["type"]) && isset($_GET["text"]) && $_GET["type"] !== "val1") {
     </div>
     <script src="assets/js/items.js"></script>
 </body>
+
 </html>

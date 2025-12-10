@@ -1,8 +1,14 @@
 <?php
+require_once "../backend/config/db_connect.php";
 require_once "../backend/helpers/admin_auth.php";
-require_admin($pdo); 
-    require_once("includes/fetchDomain.php");
+
+$pdo = getDBConnection();
+
 $is_getId = false;
+
+// Tiedosto polku
+$domain = "http://localhost/verkkokauppaProjektityo-v1/";
+
 //get method of ID
 if (isset($_GET["type"]) && isset($_GET["text"])) {
     

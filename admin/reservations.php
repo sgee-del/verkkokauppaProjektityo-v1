@@ -1,68 +1,44 @@
 <?php
+session_start();
+require_once "../backend/config/db_connect.php";
 require_once "../backend/helpers/admin_auth.php";
-require_admin($pdo); 
-$is_getId = false;
-require_once("includes/fetchDomain.php");
-//get method of ID
-if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
-    //fetches content of api
 
-    //api path. $domain being the root folder where files exist
-    $getId = $_GET["text"];
-    if ($getId === "kaikki" || $getId === "all") {
-        $getId = "a";
-    }
+$pdo = getDBConnection();
+require_admin($pdo); // Varmistaa, että admin on kirjautunut
 
-    $apiPath = $domain . "backend/api/orders/get_orders.php?order_id=$getId";
-    $is_getId = true;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_URL, $apiPath);
+// Hakuparametrit
+$searchId = $_GET['text'] ?? 'all';
+$searchType = $_GET['type'] ?? '';
 
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-    // Decode JSON to associative array
-    $data = json_decode($result, true);
-
-    // Check if decoding worked
-    if (!$data) {
-        echo "Invalid JSON or empty response";
-        exit;
-    }
+if ($searchId === 'all' || $searchId === 'kaikki') {
+    $stmt = $pdo->prepare("SELECT * FROM orders ORDER BY orderDate DESC");
+    $stmt->execute();
+} elseif ($searchType === 'id') {
+    $stmt = $pdo->prepare("SELECT * FROM orders WHERE orderID = ?");
+    $stmt->execute([$searchId]);
 } else {
-    $apiPath = $domain . "backend/api/orders/get_orders.php?order_id=a";
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_URL, $apiPath);
-
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-    // Decode JSON to associative array
-    $data = json_decode($result, true);
-
-    // Check if decoding worked
-    if (!$data) {
-        echo "Invalid JSON or empty response";
-        exit;
-    }
+    $stmt = $pdo->prepare("SELECT * FROM orders ORDER BY orderDate DESC");
+    $stmt->execute();
 }
 
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/assets/css/root.css">
-    <link rel="stylesheet" href="../public/assets/css/style.css">
-    <link rel="stylesheet" href="../admin/assets/css/admin.css">
-    <title>Admin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Tilaukset</title>
+<link rel="stylesheet" href="../public/assets/css/root.css">
+<link rel="stylesheet" href="../public/assets/css/style.css">
+<link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
-    <div class="max-1200">
+<h1>Hallintapaneeli / Tilaukset</h1>
+
+
+
+<div class="max-1200">
         <?php
         require_once("includes/admin_nav.php");
         ?>
@@ -132,7 +108,7 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
                         </div>
                         <div>
                             <p id="r1-reservationState">
-                                <?=$row["orderStatus"]?>
+                                <?=$row["status"]?>
                             </p>
                         </div>
                         <div>
@@ -195,5 +171,9 @@ if (isset($_GET["type"]) && $_GET["type"] === "id"  && isset($_GET["text"])) {
         </div>
     </div>
     <script src="assets/js/reservation.js"></script>
+
+
+
+
 </body>
 </html>

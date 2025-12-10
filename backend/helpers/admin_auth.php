@@ -11,43 +11,29 @@ require_once __DIR__ . '/auth.php';
  * 
  */
 function is_admin(PDO $pdo): bool {
-
-    if (!is_logged_in()) {
+    if (!isset($_SESSION['adminID'])) {
         return false;
     }
 
+    // Tarkistetaan, että adminID löytyy tietokannasta
     try {
-
-        // Haetaan käyttäjä admins-taulusta usersin id:n perusteella TODO roolit!
-        $stm = $pdo->prepare("
-            SELECT ar.roleName
-            FROM admins a
-            JOIN admin_roles ar ON a.roleID = ar.roleID
-            WHERE a.email = (
-                SELECT email FROM users WHERE userID = ?
-            )
-        ");
-
-        $stm->execute([$_SESSION['userID']]);
-        $role = $stm->fetch();
-
-        if ($role && $role['roleName'] === 'admin') {
-            return true;
-        }
-
+        $stm = $pdo->prepare("SELECT adminID FROM admins WHERE adminID = ?");
+        $stm->execute([$_SESSION['adminID']]);
+        $admin = $stm->fetch();
+        return $admin ? true : false;
     } catch (PDOException $e) {
         error_log("Admin check failed: " . $e->getMessage());
+        return false;
     }
-
-    return false;
 }
 
 
+
 /* Jos käyttäjä ei ole admin → ohjaa etusivulle */
-function require_admin(PDO $pdo): void
-{
+function require_admin(PDO $pdo): void {
     if (!is_admin($pdo)) {
-        header('Location: index.php'); // Ohjataan pois admin-sivulta
+        // Jos admin ei ole kirjautunut, ohjataan login-sivulle
+        header('Location: login.php');
         exit;
     }
 }
