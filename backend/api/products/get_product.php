@@ -36,7 +36,7 @@ if (isset($_GET["product_id"]) && is_numeric($_GET["product_id"])) {
         
         // Näytä virhe tai tilaukset
         if (empty($orders)) {
-            echo json_encode(["message" => "No orders found"]);
+            echo json_encode(["message" => "No products found"]);
         } else {
             // Palauta tilaukset JSON-muodossa
             echo json_encode($orders);
@@ -74,7 +74,7 @@ if (isset($_GET["product_id"]) && is_numeric($_GET["product_id"])) {
         
         // Näytä virhe tai tilaukset
         if (empty($orders)) {
-            echo json_encode(["message" => "No orders found"]);
+            echo json_encode(["message" => "No products found"]);
         } else {
             // Palauta tilaukset JSON-muodossa
             echo json_encode($orders);
@@ -112,7 +112,7 @@ if (isset($_GET["product_id"]) && is_numeric($_GET["product_id"])) {
         
         // Näytä virhe tai tilaukset
         if (empty($orders)) {
-            echo json_encode(["message" => "No orders found"]);
+            echo json_encode(["message" => "No products found"]);
         } else {
             // Palauta tilaukset JSON-muodossa
             echo json_encode($orders);

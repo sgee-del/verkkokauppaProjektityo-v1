@@ -33,10 +33,10 @@ if (session_status() === PHP_SESSION_NONE) {
 </header>
 <div class="mob-show" style="display:none;" id="btnNavUi">
     <div class="col navUi">
-        <a href="index.php"><p>Etusivu</p></a>
-        <a href="items.php"><p>Tuotteet</p></a>
-        <a href="login.php"><p>Kirjaudu</p></a>
-        <a href="register.php"><p>Luo tili</p></a>
+        <a href="index.php" alt="etusivulle"><p>Etusivu</p></a>
+        <a href="items.php" alt="tuotteet"><p>Tuotteet</p></a>
+        <a href="login.php" alt="Kirjaudu sisään"><p>Kirjaudu</p></a>
+        <a href="register.php" alt="rekisteröidy"><p>Luo tili</p></a>
     </div>
 </div>
 <script>
