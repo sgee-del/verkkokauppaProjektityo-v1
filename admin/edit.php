@@ -32,7 +32,7 @@ if (!isset($_GET["upd"])) {
     }
 } else {
     header("location: index.php");
-    exit
+    exit;
 }
 
 ?>
