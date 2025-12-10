@@ -1,35 +1,50 @@
 <?php
+header("Content-Type: application/json");
 session_start();
-require_once "../backend/config/db_connect.php"; 
-require_once "../backend/helpers/admin_auth.php"; 
 
-if (isset($_SESSION['adminID'])) {
-    header("Location: dashboard.php");
+require_once "../backend/config/db_connect.php";
+require_once "../backend/helpers/validation.php";
+require_once "../backend/helpers/password_helper.php";
+
+$pdo = getDBConnection();
+
+$data = json_decode(file_get_contents("php://input"), true);
+$errors = [];
+
+$email = sanitize_input($data["email"] ?? "");
+$password = $data["password"] ?? "";
+
+// Validointi
+if (is_empty($email)) {
+    $errors["email"] = "Sähköposti on pakollinen.";
+}
+if (is_empty($password)) {
+    $errors["password"] = "Salasana on pakollinen.";
+}
+
+if (!empty($errors)) {
+    echo json_encode(["success" => false, "errors" => $errors]);
     exit;
 }
 
+// Haetaan admin
+$stmt = $pdo->prepare("SELECT adminID, email, passHash, roleID FROM admins WHERE email = ?");
+$stmt->execute([$email]);
+$admin = $stmt->fetch();
+
+if (!$admin || !password_verify($password, $admin["passHash"])) {
+    echo json_encode([
+        "success" => false,
+        "errors" => ["form" => "Virheellinen sähköposti tai salasana."]
+    ]);
+    exit;
+}
+
+// Kirjautuminen OK
+session_regenerate_id(true);
+$_SESSION["adminID"] = $admin["adminID"];
+$_SESSION["email"] = $admin["email"];
+$_SESSION["roleID"] = $admin["roleID"];
+
+echo json_encode(["success" => true]);
 ?>
-<form method="post">
-    <input type="email" name="email" placeholder="Admin Email" required>
-    <input type="password" name="password" placeholder="Salasana" required>
-    <button type="submit">Kirjaudu sisään</button>
-</form>
-
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $stm = $pdo->prepare("SELECT * FROM admins WHERE email = ?");
-    $stm->execute([$_POST['email']]);
-    $admin = $stm->fetch();
-
-    if (!$admin || !password_verify($_POST['password'], $admin['passHash'])) {
-        echo "Virheellinen admin-kirjautuminen";
-        exit;
-    }
-
-    $_SESSION['adminID'] = $admin['adminID'];
-    $_SESSION['roleID'] = $admin['roleID'];
-
-    header("Location: dashboard.php");
-    exit;
-}
