@@ -1,13 +1,16 @@
 <?php
+require_once ("includes/fetchDomain.php");
 require_once "../backend/helpers/admin_auth.php";
 require_admin($pdo); 
 
-if (!isset($_GET["upd"])) {
+if (!isset($_GET["upd"]) || $_GET["upd"] !== false) {
+
     //if not given any type. type means the type of request, it can be user, item or reservation
     if (!isset($_GET["type"]) || !isset($_GET["id"]) || !is_numeric($_GET["id"])) {
         header("location: items.php");
         exit;
     }
+
     $getId = $_GET["id"];
 
     if (isset($_GET["type"]) && $_GET["type"] === "item") {
@@ -36,7 +39,6 @@ if (!isset($_GET["upd"])) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +60,7 @@ if (!isset($_GET["upd"])) {
             //if product (item) is the requested editable object
             if ($_GET["type"] === "item"):
             ?>
-            <form method="post">
+            <form method="get">
                 <div class="edit-div">
                     <input type="hidden" name="editItem">
                     <div class="col space-between">
@@ -112,7 +114,7 @@ if (!isset($_GET["upd"])) {
                     </div>
                 </div>
                 <div class="row space-between">
-                    <input type="submit" value="Päivitä" name="upd">
+                    <input type="submit" value="Päivitä">
                     <a href="items.php">Peruuta ja Palaa</a>
                 </div>
             </form>
