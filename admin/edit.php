@@ -1,5 +1,4 @@
 <?php
-require_once("includes/fetchDomain.php");
 require_once "../backend/helpers/admin_auth.php";
 require_admin($pdo); 
 
@@ -31,6 +30,7 @@ if (!isset($_GET["upd"])) {
         }
     }
 } else {
+    //here should be function to update data with inputted data
     header("location: index.php");
     exit;
 }
