@@ -143,6 +143,43 @@ a:hover {color: var(--paragraph-color);}
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 20px 50px rgba(50, 50, 50, 0.3);
 }
+.edit-div {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    border-radius: 5px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(50, 50, 50, 0.3);
+}
+.edit-div .col h3 {
+    margin-block: 2px;
+    margin-inline: 15px;
+}
+.edit-div .col .row {
+    height: 40px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 50px rgba(50, 50, 50, 0.3);
+    padding-inline: 15px;
+    align-items: center;
+}
+.edit-div .col .row:hover {
+    transition: all 0.17s ease-out;
+    background: rgba(128, 128, 128, 0.1);
+    box-shadow: 0 20px 50px rgba(73, 73, 73, 0.3);
+}
+
+.edit-div .col .row input {
+    width: 100%;
+    max-width: 50%;
+}
+
+
 .output-headers {
     display: grid;
     grid-template-columns: repeat(8,2fr);
