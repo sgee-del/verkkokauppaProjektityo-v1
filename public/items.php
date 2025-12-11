@@ -67,7 +67,7 @@ async function loadProducts() {
                     <h4>${parseFloat(p.price).toFixed(2)} €</h4>
                 </div>
 
-                <button class="add-btn" onclick="addToCart(${p.productID})">
+                <button type="button" class="add-btn" onclick="addToCart(${p.productID})">
                     Lisää ostoskoriin
                 </button>
             </div>

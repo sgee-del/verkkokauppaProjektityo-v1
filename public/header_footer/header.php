@@ -30,7 +30,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php endif; ?>
       <a href="cart.php" class="nav-link link-shopping-cart" style="position: relative;">
     <img src="assets/images/nav-shoppingcart.svg" class="nav-icon">
-    <span id="cartBadge" class="cart-badge hidden">0</span>
+    <span id="cartBadge" class="cart-badge">0</span>
 </a>
     </div>
 </header>
