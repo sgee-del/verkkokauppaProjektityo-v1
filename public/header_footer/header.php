@@ -28,15 +28,29 @@ if (session_status() === PHP_SESSION_NONE) {
                 <img src="assets/images/nav-login.svg" class="nav-icon">
             </a>
         <?php endif; ?>
-        <a href="cart.php" class="nav-link link-shopping-cart"><img src="assets/images/nav-shoppingcart.svg" class="nav-icon"></a>
+      <a href="cart.php" class="nav-link link-shopping-cart" style="position: relative;">
+    <img src="assets/images/nav-shoppingcart.svg" class="nav-icon">
+    <span id="cartBadge" class="cart-badge hidden">0</span>
+</a>
     </div>
 </header>
 <div class="mob-show" style="display:none;" id="btnNavUi">
     <div class="col navUi">
-        <a href="index.php" alt="etusivulle"><p>Etusivu</p></a>
+          <?php 
+if (isset($_SESSION['userID'])): ?> 
+     <a href="index.php" alt="etusivulle"><p>Etusivu</p></a>
+        <a href="items.php" alt="tuotteet"><p>Tuotteet</p></a>
+        <a href="logout.php" alt="Kirjaudu ulos"><p>Kirjaudu ulos</p></a>
+        <?php
+        else : ?>
+          <a href="index.php" alt="etusivulle"><p>Etusivu</p></a>
         <a href="items.php" alt="tuotteet"><p>Tuotteet</p></a>
         <a href="login.php" alt="Kirjaudu sisään"><p>Kirjaudu</p></a>
         <a href="register.php" alt="rekisteröidy"><p>Luo tili</p></a>
+<?php endif; ?>
+
+
+
     </div>
 </div>
 <script>
@@ -58,4 +72,6 @@ if (session_status() === PHP_SESSION_NONE) {
             btnNavUi.style.display = "none";
         }
     });
+    
 </script>
+<script src="assets/js/cartBadge.js"></script>

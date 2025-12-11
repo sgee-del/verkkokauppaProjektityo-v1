@@ -93,8 +93,7 @@ body {
     background: transparent !important;
     border: none !important;
     color: #ffffff !important;
-    box-shadow: none !important; /* poistaa sinisen korostuksen */
-
+    box-shadow: none !important; 
     width: 500px;
 }
 .cart-box {
@@ -190,37 +189,56 @@ body {
     margin: 0;
     padding-right: 30px;
 }
-@media (max-width:600px) {
-
-.form-input {
-    width: 100%;
-}
-
-
-.container {
-    max-width: 100%;
-}
-
-   .hero-bg {
+@media (max-width: 600px) {
+    .hero-bg {
         width: 100%;
-        margin: 120px 0;
-         height: 300px;
+        margin: 10px auto;
+        aspect-ratio: auto; 
+        box-shadow: none;   
     }
 
+    .container {
+        max-width: 100%;
+        padding: 10px;
+        flex-direction: column;
+    }
 
+    .card-header {
+        width: 100px;
+        height: 100px;
+    }
 
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
+    .form-control,
+    .form-input {
+        width: 100%;
+        max-width: 100%;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    .btn-primary {
+        font-size: 14px;
+        padding: 10px;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,15 +1,19 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekisteröidy</title>
+    <link rel="stylesheet" href="assets/css/root.css">
+<link rel="stylesheet" href="assets/css/style.css">
+ <link rel="stylesheet" href="assets/css/register.css">
+</head>
+<body>
+
+
 <?php
 session_start();
 include "header_footer/header.php";
 ?>
-
-<body>
-<head>
-    <link rel="stylesheet" href="assets/css/root.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/register.css">
-</head>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
