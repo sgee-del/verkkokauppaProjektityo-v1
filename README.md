@@ -1,15 +1,13 @@
-# 🥕 Lähiruoan Verkkokauppa – FreshLocal Market
+# 🥕 Lihakauppa
 
-Lähiruoan verkkokauppa on projekti, jonka tarkoituksena on tuoda **lähitilojen tuore ja jäljitettävä ruoka helposti kuluttajien saataville**.  
-Sivustolla käyttäjä näkee lähialueen tuottajien valikoiman, tuotteen alkuperän sekä voi tilata ruoan kotiovelleen **kylmäpakattuna ja tuoreena**.
+Lihakaupan verkkokauppa on projekti, jonka tarkoituksena on tuoda **lähitilojen tuore ja jäljitettävä ruoka helposti kuluttajien saataville**.  
+Sivustolla käyttäjä näkee lähialueen tuottajien valikoiman, tuotteen alkuperän sekä voi tilata ruoan kotiovelleen.
 
 ---
 
 ## 📌 Projektin tavoite
 
 Projektin päätavoitteena on luoda moderni ja käyttäjäystävällinen verkkopalvelu, joka:
-
-- näyttää käyttäjälle **lähitilojen tuotteet**, niiden **saatavuuden** ja **alkuperän**
 - tarjoaa läpinäkyvän tuotetiedon (tuottaja, sijainti, tuotantotapa, tuoreus)
 - mahdollistaa **kertatilaukset** sekä **viikottaiset tilauskset** (esim. "viikottainen ruokakassi")
 - toimittaa tuotteet **kotiin kylmäpakattuina**
@@ -21,7 +19,7 @@ Projektin päätavoitteena on luoda moderni ja käyttäjäystävällinen verkkop
 
 | Teknologia | Käyttötarkoitus |
 |------------|-----------------|
-| **HTML** | Sivuston rakenne |
+| **HTML/PHP** | Sivuston rakenne |
 | **CSS** | Ulkoasu ja responsiivinen muotoilu |
 | **JavaScript** | Dynaaminen sisältö, toiminnot, tilausten käsittely logiikka |
 | **MySQL** | Tuotteiden, käyttäjien ja tilausten tietokanta |
@@ -32,19 +30,10 @@ Projektin päätavoitteena on luoda moderni ja käyttäjäystävällinen verkkop
 
 ### 🥬 **Tuotteen näkyvyys ja alkuperä**
 - Jokaisella tuotteella näkyy:
-  - tuottajan nimi  
-  - tila / maatila  
+  - hinta 
   - tuoreus ja saatavuus  
-  - tuotteen alkuperätiedot  
-  - arvioitu toimitusaika  
-
-### 📦 **Kylmäpakattu kotiinkuljetus**
-- Automatisoitu tilaussysteemi, jossa käyttäjä voi valita toimituspäivän  
-- Tuotteet toimitetaan tuoreina ja kylmäketjun mukaisesti
-
-### 🗓 **Viikottaiset tilaukset**
-- Käyttäjä voi luoda toistuvan tilauksen (esim. viikoittainen ruokakassi)  
-- Tilaus voidaan peruuttaa tai muokata helposti omilta sivuilta  
+  - tuotteen alkuperätiedot
+  - määrä
 
 ### 🧺 **Ostoskorijärjestelmä**
 - Lisää tuotteita ostoskoriin  
@@ -66,7 +55,8 @@ Tietokanta koostuu esimerkiksi seuraavista tauluista:
 - **products** – lähituotteet, alkuperä ja tuotetiedot  
 - **orders** – yksittäiset tilaukset  
 - **order_items** – mitä tuotteita kukin tilaus sisältää  
-- **farms** – tuottajat ja maatilat  
+- **categories** - tuotteen kategoria
+- **cart** - ostoskori, näyttää ostoskoriin laitetut tuotteet
 
 > Tietokantarakenne kasvaa projektin edetessä.
 
@@ -77,13 +67,6 @@ Tietokanta koostuu esimerkiksi seuraavista tauluista:
 Tämä projekti on kehityksessä.
 Uusia ominaisuuksia lisätään jatkuvasti.
 
-## 💡 Tulevia ominaisuuksia
-
-Tavaroiden varastosaldo reaaliajassa
-
-Arvostelut ja suositukset
-
----
 
 ## 🚀 Asennus & Käyttöönotto
 
