@@ -1,3 +1,5 @@
+Projekti suunnitelma:
+
 Landing page
 - Navigointi
 - Hero

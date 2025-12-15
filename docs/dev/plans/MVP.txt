@@ -1,0 +1,8 @@
+
+Tavoitteet toteutukseen (vaatimukset)
+-Kirjautuminen, tilinluonti, landing, tuotteet, tuotteen tiedot, ostoskori
+-footer, navigointi
+
+
+Tavoitteet toteutukseen (ulkönäkö)
+-responsiivinen, muista erottuva, tyylikäs, moderni, toimiva, käyttäjäystävällinen
