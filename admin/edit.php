@@ -1,9 +1,94 @@
 <?php
 session_start();
+
+// csrf tokeninluonti
+if (empty($_SESSION["csrf_token"])) {
+    $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
+}
+
 require_once "../backend/config/db_connect.php";
 require_once "../backend/helpers/admin_auth.php";
 
 $pdo = getDBConnection();
+
+//Tuotteen muokkaus
+
+// TUOTTEEN PÄIVITYS (POST)
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editItem"])) {
+
+    // CSRF
+    if (
+        !isset($_POST["csrf_token"]) ||
+        !hash_equals($_SESSION["csrf_token"], $_POST["csrf_token"])
+    ) {
+        $errors[] = "Istunto on vanhentunut, yritä uudelleen";
+    }
+
+    // Palauttaa kentän arvon: POST → DB hakee tiedot muokkaus kenttin
+    function field_value(string $postKey, string $dbKey, array $data): string
+    {
+        if (isset($_POST[$postKey])) {
+            return htmlspecialchars($_POST[$postKey]);
+        }
+        return htmlspecialchars($data[0][$dbKey] ?? "");
+    }
+
+
+    // Validoinnit
+    $productID  = (int)$_GET["id"];
+    $categoryID = filter_input(INPUT_POST, "editCategoryID", FILTER_VALIDATE_INT);
+    $name       = trim($_POST["editProductName"] ?? "");
+    $price      = filter_input(INPUT_POST, "editPrice", FILTER_VALIDATE_FLOAT);
+    $stock      = filter_input(INPUT_POST, "editStock", FILTER_VALIDATE_INT);
+
+
+    if ($price === false || $price < 0) {
+        $errors[] = "Hinta ei ole kelvollinen";
+    }
+
+    if ($stock === false || $stock < 0) {
+        $errors[] = "Varastosaldo ei ole kelvollinen";
+    }
+
+
+    // Kategorian olemassaolo
+    if ($categoryID !== false) {
+        $checkCat = $pdo->prepare("
+            SELECT 1 FROM categories WHERE categoryID = :cid
+        ");
+        $checkCat->execute([":cid" => $categoryID]);
+
+        if ($checkCat->rowCount() === 0) {
+            $errors[] = "Valittu kategoria ei ole olemassa";
+        }
+    }
+
+    // Päivitetään jos ei löydy virheitä
+    if (empty($errors)) {
+
+        $stmt = $pdo->prepare("
+            UPDATE products
+            SET
+                name = :name,
+                price = :price,
+                stock = :stock,
+                categoryID = :categoryID
+            WHERE productID = :productID
+        ");
+
+        $stmt->execute([
+            ":name"       => $name,
+            ":price"      => $price,
+            ":stock"      => $stock,
+            ":categoryID" => $categoryID,
+            ":productID"  => $productID
+        ]);
+
+        header("Location: items.php?updated=1");
+        exit;
+    }
+}
 
 if (!isset($_GET["upd"]) || $_GET["upd"] !== false) {
 
@@ -74,7 +159,19 @@ if (!isset($_GET["upd"]) || $_GET["upd"] !== false) {
 
             if ($_GET["type"] === "item"):
             ?>
+                <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($errors as $err): ?>
+                                <li><?= htmlspecialchars($err) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
                 <form method="post">
+                    <!-- csrf -->
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION["csrf_token"] ?>">
                     <div class="edit-div">
                         <input type="hidden" name="editItem">
                         <div class="col space-between">
