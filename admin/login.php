@@ -17,19 +17,61 @@ if (is_admin($pdo)) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Login</title>
+<link rel="stylesheet" href="../public/assets/css/root.css">
 <link rel="stylesheet" href="../public/assets/css/style.css">
+<link rel="stylesheet" href="../public/assets/css/login.css">
 </head>
 <body>
 
 <h1>Admin Login</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-<div id="adminLoginErrors"></div>
+            <div class="cart-box">
+                  <div class="card-header"></div>
+                <div class="card">
 
-<form id="adminLoginForm">
-    <input type="text" name="email" placeholder="Sähköposti" required>
-    <input type="password" name="password" placeholder="Salasana" required>
-    <button type="submit">Kirjaudu</button>
-</form>
+                    <div class="card-body">
+
+                        <div class="content">
+
+                            
+                            <div id="adminLoginErrors"></div>
+
+                            <form id="adminLoginForm">
+
+                                <div class="form-group mb-3 row login-div">
+                                    <img src="assets/images/login_g1.svg" class="login-icon">
+
+                                    <input type="text" name="email"
+                                           class="form-input" placeholder="Sähköposti">
+                                </div>
+
+                                <div class="form-group mb-4 row login-div">
+                                    <img src="assets/images/login_g2.svg" class="login-icon">
+
+                                    <input type="password" name="password" id="password"
+                                           class="form-input" placeholder="Salasana">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100">Kirjaudu</button>
+
+                                <div class="card-footer text-center mt-3">
+                                    <p>Eikö sinulla ole tiliä? <a href="register.php">Luo tili</a></p>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script>
 document.getElementById("adminLoginForm").addEventListener("submit", async function(e) {
