@@ -50,7 +50,7 @@ if (isset($_GET["type"]) && isset($_GET["text"])) {
         default:
             header("location: users.php");
             exit;
-            break;
+            
     }
     //fetches content of api
 

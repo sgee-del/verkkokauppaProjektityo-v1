@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editItem"])) {
             ":productID"  => $productID
         ]);
 
-        // Ohjataan takasin imes.phph sivulle päivityksen jälkeen
+        // Ohjataan takasin items.phph sivulle päivityksen jälkeen
         header("Location: items.php?updated=1");
         exit;
     }
@@ -146,6 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editItem"])) {
         </div>
     <?php endif; ?>
 
+    <!-- FORM tuotetietojen muokkaukseen -->
     <form method="post">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION["csrf_token"] ?>">
         <input type="hidden" name="editCategoryID" value="<?= field_value('editCategoryID', 'categoryID', $data) ?>">
@@ -154,21 +155,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editItem"])) {
 
         <div class="edit-div">
             <div class="col space-between">
-                <h3>Category Name</h3>
+                <h3>Kategoria</h3>
                 <div class="row space-between">
                     <p><?= htmlspecialchars($data[0]["categoryName"]) ?></p>
                 </div>
             </div>
 
             <div class="col space-between">
-                <h3>Product ID</h3>
+                <h3>Tuote ID</h3>
                 <div class="row space-between">
                     <p><?= htmlspecialchars($data[0]["productID"]) ?></p>
                 </div>
             </div>
 
             <div class="col space-between">
-                <h3>Product Name</h3>
+                <h3>Tuotteen nimi</h3>
                 <div class="row space-between">
                     <input type="text" name="editProductName" required
                         value="<?= field_value('editProductName', 'productName', $data) ?>">
@@ -176,7 +177,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editItem"])) {
             </div>
 
             <div class="col space-between">
-                <h3>Price</h3>
+                <h3>Hinta</h3>
                 <div class="row space-between">
                     <input type="text" name="editPrice" required
                         value="<?= field_value('editPrice', 'price', $data) ?>">
@@ -184,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editItem"])) {
             </div>
 
             <div class="col space-between">
-                <h3>Description</h3>
+                <h3>Tuote kuvaus</h3>
                 <div class="row space-between">
                     <input type="text" name="editDescr"
                         value="<?= field_value('editDescr', 'descr', $data) ?>">
@@ -192,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["editItem"])) {
             </div>
 
             <div class="col space-between">
-                <h3>Stock</h3>
+                <h3>Vaastosaldo</h3>
                 <div class="row space-between">
                     <input type="text" name="editStock"
                         value="<?= field_value('editStock', 'stock', $data) ?>">
