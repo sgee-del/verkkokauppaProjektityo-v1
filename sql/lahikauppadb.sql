@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 04.12.2025 klo 09:42
+-- Generation Time: 15.12.2025 klo 07:26
 -- Palvelimen versio: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,8 @@ CREATE TABLE `addresses` (
 --
 
 INSERT INTO `addresses` (`addressID`, `userID`, `street`, `city`, `zip`) VALUES
-(1, 1, 'Meikäläisentie 12', 'Helsinki', '00100');
+(1, 1, 'Meikäläisentie 12', 'Helsinki', '00100'),
+(4, 5, '9', 'Kuoipo', '1234567');
 
 -- --------------------------------------------------------
 
@@ -114,7 +115,8 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`cartID`, `userID`, `createdAt`) VALUES
 (1, 1, '2025-11-19 13:11:11'),
-(4, 4, '2025-12-02 12:53:37');
+(4, 4, '2025-12-02 12:53:37'),
+(7, 5, '2025-12-15 08:20:41');
 
 -- --------------------------------------------------------
 
@@ -174,6 +176,14 @@ CREATE TABLE `logs` (
   `timestamp` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Vedos taulusta `logs`
+--
+
+INSERT INTO `logs` (`logID`, `userID`, `action`, `timestamp`) VALUES
+(1, 5, 'Uusi tilaus: #3', '2025-12-08 08:49:38'),
+(2, 5, 'Uusi tilaus: #4', '2025-12-11 13:46:43');
+
 -- --------------------------------------------------------
 
 --
@@ -194,7 +204,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderID`, `userID`, `orderDate`, `totalPrice`, `status`, `paymentStatus`) VALUES
-(1, 1, '2025-11-19 13:11:11', 46.30, 'paid', 'paid');
+(1, 1, '2025-11-19 13:11:11', 46.30, 'paid', 'paid'),
+(3, 5, '2025-12-08 08:49:38', 258.00, 'pending', 'not_paid'),
+(4, 5, '2025-12-11 13:46:43', 497.30, 'pending', 'not_paid');
 
 --
 -- Herättimet `orders`
@@ -225,7 +237,14 @@ CREATE TABLE `order_items` (
 
 INSERT INTO `order_items` (`orderID`, `productID`, `amount`) VALUES
 (1, 1, 2),
-(1, 2, 1);
+(1, 2, 1),
+(3, 3, 20),
+(4, 1, 1),
+(4, 2, 1),
+(4, 3, 29),
+(4, 4, 1),
+(4, 5, 1),
+(4, 7, 7);
 
 --
 -- Herättimet `order_items`
@@ -278,12 +297,12 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`productID`, `name`, `price`, `categoryID`, `stock`, `weightKg`, `origin`, `descr`, `createdAt`) VALUES
-(1, 'Naudan jauheliha', 8.90, 1, 120, 1.00, 'Paikallinen lähitila', 'Tuore 100% kotimainen naudan jauheliha', '2025-11-19 13:11:11'),
-(2, 'Naudan fileepihvi', 28.50, 1, 40, 0.30, 'Paikallinen lähitila', 'Murea premium-fileepihvi', '2025-11-19 13:11:11'),
-(3, 'Broilerin rintafile', 12.90, 2, 80, 1.00, 'Kotimainen tila', 'Tuore broilerin rintafile', '2025-11-19 13:11:11'),
-(4, 'Grillimakkara', 5.50, 4, 200, 0.50, 'Kotimainen maatila', 'Perinteinen grillimakkara', '2025-11-19 13:11:11'),
-(5, 'Vegenakki', 11.70, 4, 40, 0.35, 'Paikallinen lähitila', 'Vegaanne versio nakista', '2025-12-03 12:22:27'),
-(7, 'Kanan naudanliha', 9.80, 2, 500, 1.00, 'Paikallinen lähitila', 'Tuoretta kanan jauhelihaa', '2025-12-03 12:24:10');
+(1, 'Naudan jauheliha', 8.90, 1, 119, 1.00, 'Paikallinen lähitila', 'Tuore 100% kotimainen naudan jauheliha', '2025-11-19 13:11:11'),
+(2, 'Naudan fileepihvi', 28.50, 1, 39, 0.30, 'Paikallinen lähitila', 'Murea premium-fileepihvi', '2025-11-19 13:11:11'),
+(3, 'Broilerin rintafile', 12.90, 2, 31, 1.00, 'Kotimainen tila', 'Tuore broilerin rintafile', '2025-11-19 13:11:11'),
+(4, 'Grillimakkara', 5.50, 4, 199, 0.50, 'Kotimainen maatila', 'Perinteinen grillimakkara', '2025-11-19 13:11:11'),
+(5, 'Vegenakki', 11.70, 4, 39, 0.35, 'Paikallinen lähitila', 'Vegaanne versio nakista', '2025-12-03 12:22:27'),
+(7, 'Kanan jauheliha', 9.80, 2, 493, 1.00, 'Paikallinen lähitila', 'Tuoretta kanan jauhelihaa', '2025-12-03 12:24:10');
 
 -- --------------------------------------------------------
 
@@ -331,7 +350,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `email`, `firstname`, `lastname`, `phone`, `passHash`, `createdAt`) VALUES
 (1, 'test@gmail.com', 'Matti', 'Meikäläinen', '0401231234', 'test', '2025-11-19 13:11:11'),
-(4, 'topi@gmail.com', 'topi', 'topi', '', '$2y$10$iHHgppEhY1jiNZ6/zq4bIOXFE9SlH16zhEWiL60vAywIKtuxSxWyG', '2025-12-02 12:53:16');
+(4, 'topi@gmail.com', 'topi', 'topi', '', '$2y$10$iHHgppEhY1jiNZ6/zq4bIOXFE9SlH16zhEWiL60vAywIKtuxSxWyG', '2025-12-02 12:53:16'),
+(5, 'Risto.toivanen@edu.fi', 'Risto', 'Toivanen', '0449787395', '$2y$10$odnqoLjtyl/InmZzKqqOcOknRbGab7POMKjrUX/z3gabSSGBn9t/q', '2025-12-04 13:43:58');
 
 --
 -- Indexes for dumped tables
@@ -437,7 +457,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `addressID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `addressID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `admins`
@@ -461,7 +481,7 @@ ALTER TABLE `admin_roles`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -473,13 +493,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `logID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `logID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -497,7 +517,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Rajoitteet vedostauluille
