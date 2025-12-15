@@ -1,11 +1,13 @@
 <?php
-require_once ("includes/fetchDomain.php");
+session_start();
+require_once "../backend/config/db_connect.php";
 require_once "../backend/helpers/admin_auth.php";
-require_admin($pdo); 
+
+$pdo = getDBConnection();
 
 if (!isset($_GET["upd"]) || $_GET["upd"] !== false) {
 
-    //if not given any type. type means the type of request, it can be user, item or reservation
+
     if (!isset($_GET["type"]) || !isset($_GET["id"]) || !is_numeric($_GET["id"])) {
         header("location: items.php");
         exit;
@@ -14,26 +16,36 @@ if (!isset($_GET["upd"]) || $_GET["upd"] !== false) {
     $getId = $_GET["id"];
 
     if (isset($_GET["type"]) && $_GET["type"] === "item") {
-        $apiPath = $domain . "backend/api/products/get_product.php?product_id=$getId";
-        //fetches content of api
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $apiPath);
 
-        $result = curl_exec($ch);
-        curl_close($ch);
+        // PDO – haetaan tuote oikeilla sarakenimillä
+        $stmt = $pdo->prepare("
+    SELECT 
+        c.categoryID,
+        c.categoryName,
+        p.productID,
+        p.name AS productName,      
+        p.price,
+        NULL AS imagePath,          
+        p.stock
+    FROM products p
+    JOIN categories c ON p.categoryID = c.categoryID
+    WHERE p.productID = :id
+");
 
-        // Decode JSON to associative array
-        $data = json_decode($result, true);
 
-        // Check if decoding worked
+        $stmt->execute([
+            ":id" => $getId
+        ]);
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         if (!$data) {
-            echo "Invalid JSON or empty response";
+            echo "Tuotetta ei löytynyt";
             exit;
         }
     }
 } else {
-    //here should be function to update data with inputted data
+    // Jos admin ei ole kirjautunut, ohjataan takaisin login-sivulle
     header("location: index.php");
     exit;
 }
@@ -41,6 +53,7 @@ if (!isset($_GET["upd"]) || $_GET["upd"] !== false) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,79 +62,81 @@ if (!isset($_GET["upd"]) || $_GET["upd"] !== false) {
     <link rel="stylesheet" href="../admin/assets/css/admin.css">
     <title>Admin</title>
 </head>
+
 <body>
     <div class="max-1200">
         <?php
         require_once("includes/admin_nav.php");
         ?>
         <div class="main-content">
-            <h1>Hallintapaneeli / Muokkaa / <?=$_GET["type"]?></h1>
+            <h1>Hallintapaneeli / Muokkaa / <?= $_GET["type"] ?></h1>
             <?php
-            //if product (item) is the requested editable object
+
             if ($_GET["type"] === "item"):
             ?>
-            <form method="get">
-                <div class="edit-div">
-                    <input type="hidden" name="editItem">
-                    <div class="col space-between">
-                        <h3>categoryID</h3>
-                        <div class="row space-between">
-                            <p><?=$data[0]["categoryID"]?></p>
-                            <input type="text" name="editCategoryID">
+                <form method="post">
+                    <div class="edit-div">
+                        <input type="hidden" name="editItem">
+                        <div class="col space-between">
+                            <h3>categoryID</h3>
+                            <div class="row space-between">
+                                <p><?= $data[0]["categoryID"] ?></p>
+                                <input type="text" name="editCategoryID">
+                            </div>
+                        </div>
+                        <div class="col space-between">
+                            <h3>categoryName</h3>
+                            <div class="row space-between">
+                                <p><?= $data[0]["categoryName"] ?></p>
+                                <input type="text" name="editCategoryName">
+                            </div>
+                        </div>
+                        <div class="col space-between">
+                            <h3>productID</h3>
+                            <div class="row space-between">
+                                <p><?= $data[0]["productID"] ?></p>
+                                <input type="text" name="editProductID">
+                            </div>
+                        </div>
+                        <div class="col space-between">
+                            <h3>productName</h3>
+                            <div class="row space-between">
+                                <p><?= $data[0]["productName"] ?></p>
+                                <input type="text" name="editProductName">
+                            </div>
+                        </div>
+                        <div class="col space-between">
+                            <h3>price</h3>
+                            <div class="row space-between">
+                                <p><?= $data[0]["price"] ?></p>
+                                <input type="text" name="editPrice">
+                            </div>
+                        </div>
+                        <div class="col space-between">
+                            <h3>imagePath</h3>
+                            <div class="row space-between">
+                                <p><?= $data[0]["imagePath"] ?></p>
+                                <input type="text" name="editImagePath">
+                            </div>
+                        </div>
+                        <div class="col space-between">
+                            <h3>stock</h3>
+                            <div class="row space-between">
+                                <p><?= $data[0]["stock"] ?></p>
+                                <input type="text" name="editStock">
+                            </div>
                         </div>
                     </div>
-                    <div class="col space-between">
-                        <h3>categoryName</h3>
-                        <div class="row space-between">
-                            <p><?=$data[0]["categoryName"]?></p>
-                            <input type="text" name="editCategoryName">
-                        </div>
+                    <div class="row space-between">
+                        <input type="submit" value="Päivitä">
+                        <a href="items.php">Peruuta ja Palaa</a>
                     </div>
-                    <div class="col space-between">
-                        <h3>productID</h3>
-                        <div class="row space-between">
-                            <p><?=$data[0]["productID"]?></p>
-                            <input type="text" name="editProductID">
-                        </div>
-                    </div>
-                    <div class="col space-between">
-                        <h3>productName</h3>
-                        <div class="row space-between">
-                            <p><?=$data[0]["productName"]?></p>
-                            <input type="text" name="editProductName">
-                        </div>
-                    </div>
-                    <div class="col space-between">
-                        <h3>price</h3>
-                        <div class="row space-between">
-                            <p><?=$data[0]["price"]?></p>
-                            <input type="text" name="editPrice">
-                        </div>
-                    </div>
-                    <div class="col space-between">
-                        <h3>imagePath</h3>
-                        <div class="row space-between">
-                            <p><?=$data[0]["imagePath"]?></p>
-                            <input type="text" name="editImagePath">
-                        </div>
-                    </div>
-                    <div class="col space-between">
-                        <h3>stock</h3>
-                        <div class="row space-between">
-                            <p><?=$data[0]["stock"]?></p>
-                            <input type="text" name="editStock">
-                        </div>
-                    </div>
-                </div>
-                <div class="row space-between">
-                    <input type="submit" value="Päivitä">
-                    <a href="items.php">Peruuta ja Palaa</a>
-                </div>
-            </form>
+                </form>
             <?php
             endif;
-            ?>  
+            ?>
         </div>
     </div>
 </body>
+
 </html>
