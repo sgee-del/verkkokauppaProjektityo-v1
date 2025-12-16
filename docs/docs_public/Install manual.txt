@@ -1,0 +1,37 @@
+Asennusohjeet sivustolle:
+
+1. Ympäristön valmistelu
+Varmista, että palvelimella on asennettuna:
+
+Web-palvelin: esim. Apache
+
+Tietokanta: esim. MySQL
+
+tee uusi tietokanta koneellesi (MySQL) ja siirrä lahikauppadb.sql tiedostot sinne HUOM. tee saman niminen tietokanta.
+
+2. Sivuston tiedostojen siirto
+Lataa sivuston tiedostot palvelimelle.
+
+Aseta tiedostot palvelimen juurikansioon (esim. /xampp/htdocs/verkkokauppaProjektityo-v1).
+
+3. Konfigurointi
+Avaa sivuston konfiguraatiotiedosto api/config/config.php.
+
+Syötä seuraavat tiedot:
+
+Tietokannan nimi
+
+Käyttäjätunnus ja salasana
+
+Palvelimen osoite
+
+Avaa selaimessa sivuston osoite esim. http://localhost/verkkokauppaProjektityo-v1/public/.
+
+4. Testaus
+Kirjaudu sisään admin-paneeliin.
+
+Testaa rekisteröityminen ja kirjautuminen.
+
+Lisää testituote ostoskoriin ja suorita tilaus.
+
+Varmista, että tilausvahvistus lähetetään.

@@ -8,8 +8,9 @@ Toteutettava työ
 
 
 Roolit
-- Justus = Fullstack
-- Jere = Fullstack
+- Justus = Frontend
+- Jere = Backend, Frontend
+- Santtu = Backend
 
 Suunnitelmat
 

@@ -1,0 +1,25 @@
+Testiraportti:
+
+Testaajat: Santtu, Justus ja Jere
+
+Päivämäärä: 16.12.2025.
+
+Testatut:
+
+Index.php - toimii ilman ongelmia
+items.php & item.php - toimii ilman ongelmia
+checkout.php - toimii ilman ongelmia
+login.php & register.php - toimii ilman ongelmia
+NAV- toimii ilman ongelmia
+My_orders.php - toimii ilman ongelmia
+API:T - kriittisemmät API:t toimii
+
+ADMIN:
+Tuotteiden muokkaus - toimii
+muokkaus - toimii
+lisäys - toimii
+Poistaminen - toimii
+
+logout.php - toimii norminäkymässä ja adminissa
+
+

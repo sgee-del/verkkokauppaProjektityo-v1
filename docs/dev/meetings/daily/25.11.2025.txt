@@ -1,0 +1,4 @@
+Tänään tehty:
+Admin paneeli css tiedosto
+landing page, viimeistelyä vaille valmis
+Tilaus API aloitus
