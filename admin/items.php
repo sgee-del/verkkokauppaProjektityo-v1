@@ -1,8 +1,10 @@
 <?php
+session_start();
 require_once "../backend/config/db_connect.php";
 require_once "../backend/helpers/admin_auth.php";
 
 $pdo = getDBConnection();
+require_admin($pdo); // Varmistaa, että admin on kirjautunut
 
 
 // Tiedosto polku

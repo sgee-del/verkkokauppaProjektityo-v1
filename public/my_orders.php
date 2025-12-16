@@ -61,7 +61,7 @@ include "header_footer/header.php";
 
         <div class="order-box">
             <div class="order-title">
-                Tilaus #<?= $order["orderID"] ?>
+                Tilaus numero #<?= $order["orderID"] ?>
             </div>
 
             <div>Pvm: <?= $order["orderDate"] ?></div>

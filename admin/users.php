@@ -1,8 +1,10 @@
 <?php
+session_start();
 require_once "../backend/config/db_connect.php";
 require_once "../backend/helpers/admin_auth.php";
 
 $pdo = getDBConnection();
+require_admin($pdo); // Varmistaa, että admin on kirjautunut
 
 $is_getId = false;
 
@@ -50,7 +52,7 @@ if (isset($_GET["type"]) && isset($_GET["text"])) {
         default:
             header("location: users.php");
             exit;
-            break;
+            
     }
     //fetches content of api
 
