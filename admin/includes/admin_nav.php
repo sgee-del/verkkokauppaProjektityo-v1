@@ -17,7 +17,7 @@
             <div class="side-nav-user">
                 <?= htmlspecialchars($_SESSION['email']) ?>
             </div>
-            <a href="logout.php" class="logout-btn">Kirjaudu ulos</a>
+            <a href="../backend/api/admin/logout.php" class="logout-btn">Kirjaudu ulos</a>
         <?php endif; ?>
     </div>
 </div>

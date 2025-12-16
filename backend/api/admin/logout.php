@@ -16,6 +16,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Ohjataan etusivulle
-header("Location: ../public/index.php");
+header("Location: ../../../public/index.php");
 exit;
 ?>
