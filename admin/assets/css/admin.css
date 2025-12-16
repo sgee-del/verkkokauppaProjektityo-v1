@@ -14,6 +14,8 @@ a:hover {color: var(--paragraph-color);}
 .max-1200 {
     height: 100%;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .side-nav {
     width: 220px;
@@ -47,8 +49,6 @@ a:hover {color: var(--paragraph-color);}
     max-width: 800px;  
     margin: 50px auto;  
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 /* Sisällön rivit */
@@ -72,6 +72,9 @@ a:hover {color: var(--paragraph-color);}
     display:flex;
     flex-direction: column;
     align-items: center;
+}
+.main-content form {
+    width: 100%;
 }
 .search-nav {
     display: flex;
@@ -349,8 +352,12 @@ a:hover {color: var(--paragraph-color);}
     }
     .max-1200 {
         flex-direction: column;
-    }.side-nav {
+    }
+    .side-nav {
         max-width: unset;
+        position: relative;
+        top: unset;
+        left: unset;
     }
     .side-nav-top {
         max-width: unset;
@@ -370,10 +377,6 @@ a:hover {color: var(--paragraph-color);}
         margin: 0;
         margin-block: 5px;
     }
-    .side-nav {
-        width: calc(100% - 10px);
-        height: unset;
-    }
     .btn-search {
         width: 100%;
         height: 40px;
@@ -385,6 +388,7 @@ a:hover {color: var(--paragraph-color);}
     }
     .main-content {
         max-width: unset;
+        margin-inline: unset;
     }
     .middle-popup{
         backdrop-filter: blur(800px);
@@ -393,12 +397,23 @@ a:hover {color: var(--paragraph-color);}
         padding-inline: unset;
         width: 100%;
     }
+    .side-nav {
+        height: unset;
+        width: 100%;
+    }
+    .max-1200 {
+        justify-content: unset;
+    }
 }
-@media (min-width:1800px) {
+@media (min-width:1300px) {
     .side-nav {
         position: fixed;
         top: 0;
         left: 0;
+        height: 100%;
+        width: 300px;
     }
-
+    .max-1200 {
+        margin-left: 150px;
+    }
 }
